@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
+<nav class="navbar navbar-expand-lg navbar-dark bg-transparent fixed-top">
     <div class="container">
         <a class="navbar-brand" href="#">
             <img src="{{ asset('images/logo.png') }}" alt="Weathrly">
