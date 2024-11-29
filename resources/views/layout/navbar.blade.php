@@ -20,6 +20,10 @@
                         John Doe
                         <span class="ms-2">
                             <img src="{{ asset('images/profile.png') }}" alt="Profile Icon" class="rounded-circle profile-icon">
+                            <form action="{{route('logout')}}" method="post">
+                                @csrf
+                                <button type="submit">Logout</button>
+                            </form>
                         </span>
                     </a>
                 </li>
