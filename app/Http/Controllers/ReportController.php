@@ -35,12 +35,12 @@ class ReportController extends Controller
             'location' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
-    
+
         $path = null;
         if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('reports', 'public');
+            $path = $request->file('image')->store('images', 'public');
         }
-    
+
         // Menyimpan laporan ke database
         $report = new Report();
         $report->title = $request->input('title');
@@ -48,11 +48,11 @@ class ReportController extends Controller
         $report->location = $request->input('location');
         $report->image_path = $path; // Save path to the image
         $report->save();
-    
+
         // Arahkan ke halaman daftar laporan setelah berhasil disubmit
         return redirect()->route('reports.index')->with('success', 'Laporan berhasil dikirim!');
     }
-    
+
 
     /**
      * Display the specified resource.
@@ -81,29 +81,28 @@ class ReportController extends Controller
             'location' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
-    
+
         // Update image jika ada
         if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('reports', 'public');
+            $path = $request->file('image')->store('images', 'public');
             $report->image_path = $path;
         }
-    
+
         // Update data lainnya
         $report->title = $validated['title'];
         $report->description = $validated['description'];
         $report->location = $validated['location'];
         $report->save();
         $report->update($validated);
-    
+
         return redirect()->route('reports.index')->with('success', 'Laporan berhasil diperbarui!');
     }
     /**
      * Remove the specified resource from storage.
      */
-public function destroy(Report $report)
-{
-    $report->delete();
-    return redirect()->route('reports.index')->with('success', 'Laporan berhasil dihapus!');
-}
-    
+    public function destroy(Report $report)
+    {
+        $report->delete();
+        return redirect()->route('reports.index')->with('success', 'Laporan berhasil dihapus!');
+    }
 }
