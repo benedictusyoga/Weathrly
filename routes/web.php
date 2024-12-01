@@ -30,7 +30,7 @@ Route::get('/register', [AuthController::class, 'Registerform'])->name('register
 Route::post('/register/submit', [AuthController::class, 'registerSubmit'])->name('register.submit');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/report', [WeatherController::class, 'ShowWeather'])->name('report');
+Route::get('/reportTemp', [WeatherController::class, 'ShowWeather'])->name('report');
 Route::get('/heat', [HeatController::class, 'showHeat'])->name('heat');
 
 Route::get('/admin/dashboard', [AdminController::class, 'adminview'])->name('dashboard');
