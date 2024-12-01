@@ -18,17 +18,21 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('heat')}}">Heat</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        John Doe
+                <li class="nav-item d-flex flex-row ">
+                    <div class="d-flex flex-column ">
+                        <a class="nav-link pb-0" href="#">
+                            John Doe
+                        </a>
+                        <form action="{{route('logout')}}" method="post">
+                            @csrf
+                            <button type="submit" class="btn btn-danger btn-sm">Logout</button>
+                        </form>
+                    </div>
+                    <div class="d-flex align-self-center">
                         <span class="ms-2">
                             <img src="{{ asset('images/profile.png') }}" alt="Profile Icon" class="rounded-circle profile-icon">
-                            <form action="{{route('logout')}}" method="post">
-                                @csrf
-                                <button type="submit">Logout</button>
-                            </form>
                         </span>
-                    </a>
+                    </div>
                 </li>
             </ul>
         </div>
