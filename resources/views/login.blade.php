@@ -9,9 +9,10 @@
 </head>
 
 <body>
-    <h1 class="text-center mt-5">Login</h1>
 
     <div class="row justify-content-center mt-5">
+        <h1 class="text-center mt-5 display-1 fw-bolder">Welcome to WEATHRLY</h1>
+        <h1 class="text-center mt-4 mb-4">Login</h1>
         <div class="col-md-3">
             <div class="card">
                 <div class="card-body">
