@@ -19,7 +19,7 @@
         </div>
 
         <!-- Lokasi yang dapat dipilih di peta -->
-        <div class="mb-3">
+        <div class="mb-3" style="display: none;">
             <label for="location" class="form-label">Lokasi</label>
             <input type="text" class="form-control" id="location" name="location" value="{{ old('location', $report->location) }}" required readonly>
         </div>
