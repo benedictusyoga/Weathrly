@@ -3,7 +3,7 @@
 @section('content')
 <div class="container mt-4">
     <h2>Daftar Laporan Lingkungan</h2>
-
+    <a href="{{ route('reports.create') }}" class="btn btn-primary mb-3">Buat Laporan Baru</a>
     <!-- Form Pencarian -->
     <form action="{{ route('reports.index') }}" method="GET" class="mb-4">
         <div class="input-group">
