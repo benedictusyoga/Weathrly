@@ -13,16 +13,20 @@
         <div class="col-md-3">
             <div class="card">
                 <div class="card-body">
-                <form action="{{ route('register.submit') }}" method="post">
+                <form action="{{ route('register.post') }}" method="POST">
                     @csrf
                     <label for="">Nama</label>
                     <input type="text" name="name" class="form-control mb-2">
+
                     <label for="">Usia</label>
                     <input type="text" name="age" class="form-control mb-2">
+
                     <label for="">Username</label>
                     <input type="text" name="username" class="form-control mb-2">
+
                     <label for="">Password</label>
                     <input type="password" name="password" class="form-control mb-2">
+                    
                     <div class="text-center">
                         <button class="btn btn-success mt-4">Register</button>
                     </div>
