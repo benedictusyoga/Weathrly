@@ -4,28 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Report;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 
 class ReportController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        // Ambil keyword dari input pencarian
-        $search = $request->input('search');
-    
-        // Filter laporan berdasarkan title atau location_name
-        $reports = Report::when($search, function ($query, $search) {
-            return $query->where('title', 'LIKE', "%{$search}%")
-                         ->orWhere('location_name', 'LIKE', "%{$search}%");
-        })->paginate(10);
-    
-        // Kembalikan view dengan data laporan
+        $reports = Report::all(); // Ambil semua laporan dari database
         return view('reports.index', compact('reports'));
     }
-    
 
     /**
      * Show the form for creating a new resource.
@@ -52,19 +41,11 @@ class ReportController extends Controller
             $path = $request->file('image')->store('images', 'public');
         }
 
-        
-
-
         // Menyimpan laporan ke database
         $report = new Report();
         $report->title = $request->input('title');
         $report->description = $request->input('description');
         $report->location = $request->input('location');
-        $locationParts = explode(',', $validated['location']);
-        $latitude = trim($locationParts[0]);
-        $longitude = trim($locationParts[1]);
-        $locationName = $this->getLocationName($latitude, $longitude);
-        $report->location_name = $locationName;
         $report->image_path = $path; // Save path to the image
         $report->save();
 
@@ -107,16 +88,10 @@ class ReportController extends Controller
             $report->image_path = $path;
         }
 
-        $locationParts = explode(',', $validated['location']);
-        $latitude = trim($locationParts[0]);
-        $longitude = trim($locationParts[1]);
-        $locationName = $this->getLocationName($latitude, $longitude);
-
         // Update data lainnya
         $report->title = $validated['title'];
         $report->description = $validated['description'];
         $report->location = $validated['location'];
-        $report->location_name = $locationName;
         $report->save();
         $report->update($validated);
 
@@ -130,29 +105,4 @@ class ReportController extends Controller
         $report->delete();
         return redirect()->route('reports.index')->with('success', 'Laporan berhasil dihapus!');
     }
-
-    private function getLocationName($latitude, $longitude)
-    {
-        try {
-            // URL Reverse Geocoding Nominatim
-            $url = "https://nominatim.openstreetmap.org/reverse?lat={$latitude}&lon={$longitude}&format=json";
-    
-            // Send HTTP GET request
-            $response = Http::withHeaders([
-                'User-Agent' => 'Weathrly (revaldoapryan@gmail.com)', // Update this as needed
-            ])->get($url);
-    
-            // Check if the response is successful and parse the location name
-            if ($response->successful() && isset($response['display_name'])) {
-                return $response['display_name'];
-            } else {
-                return "Lokasi tidak ditemukan";
-            }
-        } catch (\Exception $e) {
-            // Handle errors and log the exception
-            \Log::error("Error reverse geocoding: " . $e->getMessage());
-            return "Lokasi tidak ditemukan";
-        }
-    }
-    
 }

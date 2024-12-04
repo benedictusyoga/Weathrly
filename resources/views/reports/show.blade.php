@@ -9,7 +9,7 @@
         <div class="card-body">
             <h5 class="card-title">{{ $report->title }}</h5>
             <p class="card-text">{{ $report->description }}</p>
-            <p><strong>Lokasi:</strong> {{ $report->location_name}}</p>
+            <p><strong>Lokasi:</strong> {{ $report->location }}</p>
         </div>
     </div>
 
