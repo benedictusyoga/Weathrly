@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\customer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Hash;
+
 
 class AuthController extends Controller
 {
@@ -34,29 +34,31 @@ class AuthController extends Controller
         $customer->password = bcrypt($request->password);
         $customer->save();
         Auth::login($customer);
-        return redirect('/');
+        return redirect()->route('login');
     }
 
     public function login(Request $request)
     {
-        $validate = $request->validate([
-            'username' => 'required|string',
-            'password' => 'required|string',
-        ]);
+        $data = $request->only('username', 'password');
 
-        if (Auth::attempt(['username' => $validate['username'], 'password' => $validate['password']])) {
+        // Log the attempt for debugging purposes
+        Log::info('Login attempt for: ', $data);
+
+        if (Auth::attempt($data)) {
             $request->session()->regenerate();
-            return redirect()->intended('/landing');
-        } else {
-            return back()->withErrors(['username' => 'Username/password invalid']);
+            Log::info('Login successful for: ', $data);
+            Log::info('Redirecting to landing page.');
+            //return redirect('/landing'); // Try using the full URL to the landing page// Regenerate session for security
+            return redirect()->route('landing'); // Redirect to the landing page
         }
+
+        // If login fails, return back with an error message
+        return redirect()->back()->with('gagal', 'Username atau password salah.');
     }
 
-    public function logout(Request $request)
+    public function logout()
     {
         Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
         return redirect()->route('login');
     }
 }

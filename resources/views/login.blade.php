@@ -16,18 +16,15 @@
         <div class="col-md-3">
             <div class="card">
                 <div class="card-body">
-                    <form action="{{ route('login.post') }}" method="POST">
+                    <form action="{{ route('login.submit') }}" method="post">
                         @csrf
-                        <label for="username">Username</label>
-                        <input type="text" name="username" class="form-control mb-2" placeholder="Enter username">
-
-                        <label for="password">Password</label>
-                        <input type="password" name="password" class="form-control mb-2" placeholder="Enter password">
-
+                        <label for="">Username</label>
+                        <input type="text" name="username" class="form-control mb-2">
+                        <label for="">Password</label>
+                        <input type="password" name="password" class="form-control mb-2">
                         <div class="text-center">
-                            <button type="submit" class="btn btn-success w-100">Login</button>
+                            <button class="btn btn-success mt-4">Login</button>
                         </div>
-
                         <p class="text-center mt-4">Belum punya akun <a href="{{ route('register') }}">Register</a></p>
                     </form>
                     @if(session('gagal'))
