@@ -4,10 +4,12 @@
             <img src="{{ asset('images/logo.png') }}" alt="Weathrly">
             <span>WEATHRLY</span>
         </a>
+        @auth
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
+            
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('report')}}">Report</a>
@@ -18,14 +20,17 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('heat')}}">Heat</a>
                 </li>
-                <li class="nav-item d-flex flex-row ">
-                    <div class="d-flex flex-column ">
+                <li class="nav-item d-flex flex-row">
+                    <div class="d-flex flex-column">
                         <a class="nav-link pb-0" href="#">
-                            John Doe
+                            {{ Auth::user()->name }}
                         </a>
-                        <form action="{{route('logout')}}" method="post">
+                        <a class="btn btn-outline-danger" href="{{ route('logout') }}"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            Logout
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf
-                            <button type="submit" class="btn btn-danger btn-sm">Logout</button>
                         </form>
                     </div>
                     <div class="d-flex align-self-center">
@@ -35,6 +40,10 @@
                     </div>
                 </li>
             </ul>
+        @endauth
+            
+        @guest
+        @endguest
         </div>
     </div>
 </nav>
