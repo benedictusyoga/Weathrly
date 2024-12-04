@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Report;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
 class ReportController extends Controller
@@ -13,25 +14,34 @@ class ReportController extends Controller
      */
     public function index(Request $request)
     {
+
+        if (!Auth::check()) {
+            // Redirect to login if not authenticated
+            return redirect()->route('login')->with('error', 'You must log in to access this page.');
+        }
         // Ambil keyword dari input pencarian
         $search = $request->input('search');
-    
+
         // Filter laporan berdasarkan title atau location_name
         $reports = Report::when($search, function ($query, $search) {
             return $query->where('title', 'LIKE', "%{$search}%")
-                         ->orWhere('location_name', 'LIKE', "%{$search}%");
+                ->orWhere('location_name', 'LIKE', "%{$search}%");
         })->paginate(10);
-    
+
         // Kembalikan view dengan data laporan
         return view('reports.index', compact('reports'));
     }
-    
+
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
+        if (!Auth::check()) {
+            // Redirect to login if not authenticated
+            return redirect()->route('login')->with('error', 'You must log in to access this page.');
+        }
         return view('report');
     }
 
@@ -40,11 +50,15 @@ class ReportController extends Controller
      */
     public function store(Request $request)
     {
+        if (!Auth::check()) {
+            // Redirect to login if not authenticated
+            return redirect()->route('login')->with('error', 'You must log in to access this page.');
+        }
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'location' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg',
         ]);
 
         $path = null;
@@ -52,7 +66,7 @@ class ReportController extends Controller
             $path = $request->file('image')->store('images', 'public');
         }
 
-        
+
 
 
         // Menyimpan laporan ke database
@@ -78,6 +92,10 @@ class ReportController extends Controller
      */
     public function show(Report $report)
     {
+        if (!Auth::check()) {
+            // Redirect to login if not authenticated
+            return redirect()->route('login')->with('error', 'You must log in to access this page.');
+        }
         return view('reports.show', compact('report'));
     }
 
@@ -86,6 +104,10 @@ class ReportController extends Controller
      */
     public function edit(Report $report)
     {
+        if (!Auth::check()) {
+            // Redirect to login if not authenticated
+            return redirect()->route('login')->with('error', 'You must log in to access this page.');
+        }
         return view('reports.edit', compact('report'));
     }
 
@@ -94,6 +116,10 @@ class ReportController extends Controller
      */
     public function update(Request $request, Report $report)
     {
+        if (!Auth::check()) {
+            // Redirect to login if not authenticated
+            return redirect()->route('login')->with('error', 'You must log in to access this page.');
+        }
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
@@ -127,21 +153,29 @@ class ReportController extends Controller
      */
     public function destroy(Report $report)
     {
+        if (!Auth::check()) {
+            // Redirect to login if not authenticated
+            return redirect()->route('login')->with('error', 'You must log in to access this page.');
+        }
         $report->delete();
         return redirect()->route('reports.index')->with('success', 'Laporan berhasil dihapus!');
     }
 
     private function getLocationName($latitude, $longitude)
     {
+        if (!Auth::check()) {
+            // Redirect to login if not authenticated
+            return redirect()->route('login')->with('error', 'You must log in to access this page.');
+        }
         try {
             // URL Reverse Geocoding Nominatim
             $url = "https://nominatim.openstreetmap.org/reverse?lat={$latitude}&lon={$longitude}&format=json";
-    
+
             // Send HTTP GET request
             $response = Http::withHeaders([
                 'User-Agent' => 'Weathrly (revaldoapryan@gmail.com)', // Update this as needed
             ])->get($url);
-    
+
             // Check if the response is successful and parse the location name
             if ($response->successful() && isset($response['display_name'])) {
                 return $response['display_name'];
@@ -154,5 +188,4 @@ class ReportController extends Controller
             return "Lokasi tidak ditemukan";
         }
     }
-    
 }

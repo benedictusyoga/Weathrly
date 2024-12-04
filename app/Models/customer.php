@@ -15,7 +15,7 @@ class customer extends Authenticatable
     protected $table = 'customer';
 
     // Field yang bisa diisi
-    protected $fillable = ['name', 'age', 'username', 'password', 'role'];
+    protected $fillable = ['name', 'age', 'username', 'password', 'role', 'profile_picture'];
 
     public function getAuthIdentifierName()
     {
