@@ -20,9 +20,17 @@ class AuthController extends Controller
         return view('register');
     }
 
-    public function landing()
+    public function landing(Request $request)
     {
-        return view('landing');
+
+        $weatherController = new WeatherController();
+        $data = $weatherController->showWeather($request); // No getData() needed
+
+        return view('landing', [
+            'rainData' => $data['rainData'] ?? [],
+            'city' => $request->input('city', 'Jakarta'),
+            'message' => $data['message'] ?? '',
+        ]);
     }
 
     public function registerSubmit(Request $request)
@@ -46,10 +54,20 @@ class AuthController extends Controller
 
         if (Auth::attempt(['username' => $validate['username'], 'password' => $validate['password']])) {
             $request->session()->regenerate();
+
+            // Check the user's role
+            $user = Auth::user(); // Get the authenticated user
+            if ($user->role === 'admin') {
+                return redirect()->intended('/admin/dashboard'); // Redirect to admin dashboard
+            }
+
+            // Redirect regular users to the landing page
             return redirect()->intended('/landing');
-        } else {
-            return back()->withErrors(['username' => 'Username/password invalid']);
         }
+
+        // If login fails, return back with an error
+        return redirect()->back()->with(['gagal' => 'Username/password invalid']);
+        // return redirect()->route('login')->with(['username' => 'Username/Password Invalid']);
     }
 
     public function logout(Request $request)

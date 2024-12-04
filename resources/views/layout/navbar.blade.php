@@ -9,16 +9,13 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            
+
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('report')}}">Report</a>
+                    <a class="nav-link" href="/reportHome">Report</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">News</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('heat')}}">Heat</a>
+                    <a class="nav-link" href="{{route('landing')}}">Home</a>
                 </li>
                 <li class="nav-item d-flex flex-row">
                     <div class="d-flex flex-column">
@@ -40,10 +37,10 @@
                     </div>
                 </li>
             </ul>
-        @endauth
-            
-        @guest
-        @endguest
+            @endauth
+
+            @guest
+            @endguest
         </div>
     </div>
 </nav>
