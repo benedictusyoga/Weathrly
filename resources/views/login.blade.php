@@ -19,19 +19,25 @@
                     <form action="{{ route('login.post') }}" method="POST">
                         @csrf
                         <label for="username">Username</label>
-                        <input type="text" name="username" class="form-control mb-2" placeholder="Enter username">
+                        <input type="text" name="username" class="form-control mb-2" placeholder="Enter username..." value="{{ old('username') }}">
 
                         <label for="password">Password</label>
-                        <input type="password" name="password" class="form-control mb-2" placeholder="Enter password">
+                        <input type="password" name="password" class="form-control mb-2" placeholder="Enter password..." value="{{ old('password') }}">
 
                         <div class="text-center">
-                            <button type="submit" class="btn btn-success w-100">Login</button>
+                            <button type="submit" class="btn btn-success w-100" name="submit">Login</button>
                         </div>
 
                         <p class="text-center mt-4">Belum punya akun <a href="{{ route('register') }}">Register</a></p>
                     </form>
-                    @if(session('gagal'))
-                    <p class="text-danger">{{ session('gagal') }}</p>
+                    @if ($errors->any())
+                    <div class="alert alert-danger">
+
+                        @foreach ($errors->all() as $error)
+                        {{ $error }}
+                        @endforeach
+
+                    </div>
                     @endif
                 </div>
             </div>

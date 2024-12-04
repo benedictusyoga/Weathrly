@@ -35,22 +35,49 @@ class AuthController extends Controller
 
     public function registerSubmit(Request $request)
     {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'age' => 'required|integer|min:1',
+            'username' => 'required|string|unique:customer,username|max:255',
+            'password' => 'required|string',
+        ]);
+
+        $usernameExists = Customer::where('username', $request->username)->exists();
+
+        if ($usernameExists) {
+            return redirect()->back()->withErrors(['username' => 'Username already taken. Please choose another.']);
+        }
+
+        // Set default profile picture path
+        $defaultProfilePicturePath = 'profile_pictures/default-profile.png';
+
         $customer = new Customer();
         $customer->name = $request->name;
         $customer->age = $request->age;
         $customer->username = $request->username;
         $customer->password = bcrypt($request->password);
+        $customer->profile_picture = $defaultProfilePicturePath;
         $customer->save();
         Auth::login($customer);
-        return redirect('/');
+        // return redirect('/');
+        return redirect('/landing')->with('success', 'Registration successful!');
     }
 
     public function login(Request $request)
     {
+
         $validate = $request->validate([
             'username' => 'required|string',
             'password' => 'required|string',
         ]);
+
+        $user = Customer::where('username', $validate['username'])->first();
+
+        if (!$user) {
+            // If the username does not exist, return an error message
+            return redirect()->back()->withErrors(['register' => 'Username not registered, please register.']);
+        }
+
 
         if (Auth::attempt(['username' => $validate['username'], 'password' => $validate['password']])) {
             $request->session()->regenerate();
@@ -66,7 +93,7 @@ class AuthController extends Controller
         }
 
         // If login fails, return back with an error
-        return redirect()->back()->with(['gagal' => 'Username/password invalid']);
+        return redirect()->back()->withErrors(['nama' => 'Username/password invalid']);
         // return redirect()->route('login')->with(['username' => 'Username/Password Invalid']);
     }
 
@@ -76,5 +103,58 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect()->route('login');
+    }
+
+    public function editProfileForm()
+    {
+        if (!Auth::check()) {
+            // Redirect to login if not authenticated
+            return redirect()->route('login')->with('error', 'You must log in to access this page.');
+        }
+        $user = Auth::user();
+        return view('edit-profile', compact('user'));
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $user = Auth::user();
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'age' => 'required|integer|min:1',
+            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg',
+        ]);
+
+        // Update profile picture if provided
+        if ($request->hasFile('profile_picture')) {
+            $path = $request->file('profile_picture')->store('profile_pictures', 'public');
+            $user->profile_picture = $path;
+        }
+
+        // Update other profile fields
+        $user->name = $validated['name'];
+        $user->age = $validated['age'];
+        $user->save();
+
+        return redirect()->route('profile.edit')->with('success', 'Profile updated successfully!');
+    }
+
+    public function deleteProfilePicture(Request $request)
+    {
+        $user = Auth::user();
+        $defaultProfilePicturePath = 'profile_pictures/default-profile.png';
+
+        if ($user->profile_picture !== $defaultProfilePicturePath) {
+            // Delete the file from storage
+            \Storage::delete('public/' . $user->profile_picture);
+
+            // Reset the profile_picture field to null
+            $user->profile_picture = $defaultProfilePicturePath;
+            $user->save();
+
+            return redirect()->back()->with('success', 'Profile picture has been removed and reverted to the default.');
+        } else if ($user->profile_picture === $defaultProfilePicturePath) {
+            return redirect()->back()->with('error', 'No profile picture to delete.');
+        }
     }
 }
