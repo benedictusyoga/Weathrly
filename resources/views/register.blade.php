@@ -32,7 +32,7 @@
                     </div>
                     <button type="submit" class="btn btn-success w-100">Register</button>
                 </form>
-                <p class="text-white mt-3">Already have a WEATHRLY account? <a href="{{ route('login') }}" class="text-info fw-bold">REGISTER</a></p>
+                <p class="text-white mt-3">Already have a WEATHRLY account? <a href="{{ route('login') }}" class="text-info fw-bold">LOGIN</a></p>
             </div>
         </div>
     </div>
