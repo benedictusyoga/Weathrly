@@ -7,6 +7,7 @@
     <title>Weathrly</title>
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ asset('css/landing.css') }}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -16,60 +17,64 @@
         <div class="main-box">
             @guest
             <h1 class="display-1">Welcome to WEATHRLY</h1>
-            @endguest
-            @auth
-            <h1 class="display-1">Welcome, <span>{{ Auth::user()->name }}</span></h1>
-            @endauth
             <p>Your trusted source for weather updates.</p>
-            @guest
             <div class="container">
                 <a href="/login" class="btn btn-primary" role="button">Login</a>
                 <a href="/register" class="btn btn-secondary" role="button">Register</a>
             </div>
+            
             @endguest
+            @auth
+            <h1 class="display-1">Welcome, <span>{{ Auth::user()->name }}</span></h1>
+            <p>Your trusted source for weather updates.</p>
+            @endauth
+            
         </div>
-
+        <div class="weather-det">
+        @auth
         <!-- Weather Form Section -->
-        <form action="{{ route('landing') }}" method="GET">
-            <div class="row justify-content-center mt-5">
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <label for="city">Pilih Kota:</label>
-                            <select name="city" id="city" class="form-control">
-                                <option value="Jakarta" {{ $city == 'Jakarta' ? 'selected' : '' }}>Jakarta</option>
-                                <option value="Tangerang" {{ $city == 'Tangerang' ? 'selected' : '' }}>Tangerang</option>
-                            </select>
-                            <button class="btn btn-success mt-3" type="submit">Tampilkan Cuaca</button>
-                        </div>
-                    </div>
+        <form action="{{ route('landing') }}" method="GET" class="mt-3">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-md-2 text-end">
+                    <label for="city" class="form-label fw-bold">Choose City</label>
+                </div>
+                <div class="col-md-6">
+                    <input type="text" id="city" name="city" class="form-control" placeholder="Enter city" value="{{ $city }}">
+                </div>
+                <div class="col-md-1">
+                    <button class="btn btn-success w-100" type="submit">Show</button>
                 </div>
             </div>
         </form>
 
+
         <!-- Weather Results Section -->
-        <div class="container mt-5">
+        <div class="container mt-3">
             @if(!empty($rainData))
-            <h3>Prediksi Hujan di {{ $city }}</h3>
-            <ul class="list-group">
+            <h3 class="text-center">Weather Forecast for {{ $city }}</h3>
+            <div class="list-group">
                 @foreach($rainData as $rain)
-                <li class="list-group-item">
-                    <strong>{{ $rain['time'] }}</strong> - Hujan: {{ number_format($rain['rain_mm'], 2) }} mm
-                </li>
+                <div class="list-group-item">
+                    <strong>{{ $rain['time'] }}</strong> - Hujan ({{ number_format($rain['rain_mm'], 2) }} mm)
+                </div>
                 @endforeach
-            </ul>
+            </div>
+            <div class="d-flex justify-content-center mt-3">
+                {{ $rainData->links('pagination::bootstrap-4') }}
+            </div>
             @elseif(isset($message))
             <div class="alert alert-info">
                 <p>{{ $message }}</p>
             </div>
             @else
             <div class="alert alert-warning">
-                <p>Tidak ada data cuaca untuk kota ini.</p>
+                <p>No weather data available for this city.</p>
             </div>
             @endif
         </div>
+        @endauth
+        </div>
     </div>
+
     <script src="{{ asset('js/bootstrap.js') }}"></script>
 </body>
-
-</html>

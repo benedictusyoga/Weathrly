@@ -5,11 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weathrly</title>
-    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/regisStyle.css') }}" rel="stylesheet">
 </head>
 
 <body>
-    <h1 class="text-center mt-5">Register</h1>
+    <h1 class="text-center mt-5">Register to WEATHRLY</h1>
 
     <div class="row justify-content-center mt-5">
         <div class="col-md-3">
@@ -40,6 +41,7 @@
                             <button class="btn btn-success mt-4">Register</button>
                         </div>
                     </form>
+                    <p class="text-white mt-3">Already have a WEATHRLY account? <a href="{{ route('login') }}" class="text-info fw-bold">LOGIN</a></p>
                 </div>
             </div>
         </div>

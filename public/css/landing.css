@@ -1,58 +1,119 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Inter', sans-serif;
     background: url('/images/background-image.png') no-repeat center center fixed;
     background-size: cover;
-}
-
-.overlay {
-    display: none;
-    background-color: rgba(0, 0, 0, 0.5);
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
 }
 
 .content {
     position: relative;
     z-index: 10;
-}
-
-.navbar {
-    background-color: rgba(0, 0, 0, 0.7);
-}
-
-.navbar a {
-    color: #fff;
-    text-decoration: none;
-}
-
-.navbar a:hover {
-    color: #ccc;
-}
-
-.navbar-brand img {
-    height: 40px;
-}
-
-.profile-icon {
-    width: 30px;
-    height: 30px;
+    margin-top: -5%;
+    margin: 0 auto;
 }
 
 .main-box {
     display: flex;
     flex-direction: column;
-    background-color: transparent;
-    /* background-color: rgba(255, 255, 255, 0.2); */
-    border-radius: 10px;
-    padding: 20px;
-    height: 100vh;
-    color: white;
     align-items: center;
     justify-content: center;
+    height: 60vh; /* Reduce height */
+    color: white;
     text-align: center;
 }
+
+h1 {
+    font-size: 2rem; /* Larger font for header */
+}
+
+h3 {
+    font-size: 1.5rem;
+    color: white;
+    font-family: 'Inter', sans-serif;
+}
+
+.weather-det {
+    margin-top: -10%;
+    padding: 20px;
+}
+
+input[type="text"] {
+    height: 45px;
+}
+
+form{
+    margin-left: -15%;
+}
+form .form-label {
+    color: white; /* Match the theme */
+    font-size: 0.9rem;
+}
+
+form .btn-success {
+    height: 35px;
+    font-size: 0.9rem;
+}
+
+form .form-control {
+    height: 35px;
+    font-size: 0.9rem;
+}
+
+
+.list-group-item {
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 0;
+    color: #333;
+    font-size: 0.9rem;
+    padding: 8px 10px;
+    margin: auto;
+}
+
+.navbar {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+button.btn-success {
+    background-color: #237635;
+    border-radius: 0.5em;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    list-style: none;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-radius: 0.5em;
+}
+
+.pagination .page-item {
+    margin: 0 5px;
+    border-radius: 0.5em;
+}
+
+.pagination .page-link {
+    font-size: 0.8rem;
+    color: #333;
+    background-color: transparent;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 0.5em;
+    transition: background-color 0.3s, color 0.3s;
+    padding: 5px 8px;
+}
+
+.pagination .page-link:hover {
+    background-color: #333;
+    color: white;
+    text-decoration: none;
+}
+
+.pagination .active .page-link {
+    background-color: #333;
+    color: white;
+}
+
+
