@@ -1,0 +1,63 @@
+body {
+    background: url('/images/background-image.png') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Inter', sans-serif;
+    color: #fff;
+}
+
+form {
+    background: transparent;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+form label {
+    display: block; 
+    text-align: left; 
+    color: white; 
+    margin-bottom: 5px;
+}
+
+h1 {
+    color: white;
+    font-weight: bold;
+}
+
+label {
+    font-weight: bold;
+    color: white;
+}
+
+.card {
+    background: transparent;
+    border: none;
+}
+
+.form-control {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: none;
+}
+
+.btn-success {
+    font-weight: bold;
+    background-color: #007bff;
+    border: none;
+}
+
+.btn-success:hover {
+    background-color: #0056b3;
+}
+
+p {
+    color: white;
+}
+
+a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+a.text-info:hover {
+    color: #0052aa !important;
+    text-decoration: none;
+}
