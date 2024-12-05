@@ -1,0 +1,86 @@
+/* Ensure navbar doesn't overlap the content */
+body {
+    background: url('/images/background-image.png') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Inter', sans-serif;
+    color: #fff;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    height: 100vh;          
+    margin: 0;              
+}
+
+.navbar {
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+}
+
+.container {
+    display: flex;
+    padding: 20px;
+}
+
+.card {
+    display: flex;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    color: #333;
+    margin-top: 70px;
+}
+
+.card-img-top {
+    height: 150px;
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-title {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.card-text {
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 14px;
+}
+
+.card:hover {
+    transform: scale(1.03);
+    transition: transform 0.3s;
+}
+
+.floating-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    font-size: 24px;
+    z-index: 1000;
+}
+
+.floating-btn:hover {
+    background-color: #0056b3;
+}
