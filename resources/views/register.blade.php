@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <h1 class="text-center mt-5">Register to WEATHRLY</h1>
+    <h1 class="text-center custom-margin">Register to WEATHRLY</h1>
 
     <div class="row justify-content-center mt-5">
         <div class="col-md-3">

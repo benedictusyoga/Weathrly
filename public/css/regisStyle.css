@@ -20,7 +20,7 @@ form label {
 
 h1 {
     color: white;
-    font-weight: bold;
+    font-weight: bold
 }
 
 label {
@@ -62,4 +62,8 @@ a {
 a.text-info:hover {
     color: #0052aa !important;
     text-decoration: none;
+}
+
+.custom-margin {
+    margin-top: 100px;
 }
