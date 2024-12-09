@@ -5,7 +5,8 @@
     <h2>Detail Laporan: {{ $report->title }}</h2>
 
     <div class="card mb-3">
-        <img src="{{ $report->image_path ? asset('storage/'.$report->image_path) : 'https://via.placeholder.com/150' }}" class="card-img-top" alt="Image">
+        <img src="{{ $report->image_path ? Storage::disk('s3')->url($report->image_path) : 'https://via.placeholder.com/150' }}" class="card-img-top" alt="Image">
+
         <div class="card-body">
             <h5 class="card-title">{{ $report->title }}</h5>
             <p class="card-text">{{ $report->description }}</p>

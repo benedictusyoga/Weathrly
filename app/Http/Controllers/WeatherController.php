@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 class WeatherController extends Controller
 {
@@ -70,7 +72,22 @@ class WeatherController extends Controller
             }
         });
 
-        // Return the data
-        return $data;
+        // Paginate rainData
+        $rainData = collect($data['rainData']);
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+        $perPage = 10; // Adjust number of results per page
+        $paginatedRainData = new LengthAwarePaginator(
+            $rainData->forPage($currentPage, $perPage)->values(),
+            $rainData->count(),
+            $perPage,
+            $currentPage,
+            ['path' => $request->url(), 'query' => $request->query()]
+        );
+
+        return view('landing', [
+            'city' => $city,
+            'rainData' => $paginatedRainData,
+            'message' => $data['message'] ?? null,
+        ]);
     }
 }
