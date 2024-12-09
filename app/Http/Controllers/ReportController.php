@@ -63,11 +63,8 @@ class ReportController extends Controller
 
         $path = null;
         if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('images', 'public');
+            $path = $request->file('image')->store('reports/images', 's3');
         }
-
-
-
 
         // Menyimpan laporan ke database
         $report = new Report();
@@ -129,7 +126,10 @@ class ReportController extends Controller
 
         // Update image jika ada
         if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('images', 'public');
+            if ($report->image_path && $report->image_path !== 'reports/images/default-image.png') {
+                \Storage::disk('s3')->delete($report->image_path);
+            }
+            $path = $request->file('image')->store('reports/images', 's3');
             $report->image_path = $path;
         }
 
@@ -156,6 +156,10 @@ class ReportController extends Controller
         if (!Auth::check()) {
             // Redirect to login if not authenticated
             return redirect()->route('login')->with('error', 'You must log in to access this page.');
+        }
+
+        if ($report->image_path && $report->image_path !== 'reports/images/default-image.png') {
+            \Storage::disk('s3')->delete($report->image_path);
         }
         $report->delete();
         return redirect()->route('reports.index')->with('success', 'Laporan berhasil dihapus!');

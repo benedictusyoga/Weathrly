@@ -33,7 +33,7 @@
             <input type="file" name="profile_picture" id="profile_picture" class="form-control">
             @if($user->profile_picture)
             <div class="mt-2">
-                <img src="{{ asset('storage/' . $user->profile_picture) }}" alt="Profile Picture" class="img-thumbnail" style="max-width: 150px;">
+                <img src="{{ Storage::disk('s3')->url(Auth::user()->profile_picture) }}" alt="Profile Picture" class="img-thumbnail" style="max-width: 150px;">
             </div>
             @endif
             @error('profile_picture')

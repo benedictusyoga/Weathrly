@@ -1,5 +1,5 @@
 <link href="{{ asset('css/navbarStyle.css') }}" rel="stylesheet">
-<nav class="navbar navbar-expand-lg navbar-dark bg-transparent">
+<nav class="navbar navbar-expand-lg navbar-dark bg-transparent fixed-top">
     <div class="container">
         <!-- Logo and Brand Name -->
         <a class="navbar-brand d-flex align-items-center" href="/landing">
@@ -25,7 +25,7 @@
                         <a class="user-name nav-link text-white mb-0 p-0" href="/profile/edit" style="font-family: 'Inter', sans-serif;">
                             {{ Auth::user()->name }}
                         </a>
-                        <a class="btn btn-sm btn-outline-light logout-button" href="{{ route('logout') }}" 
+                        <a class="btn btn-sm btn-outline-light logout-button" href="{{ route('logout') }}"
                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             Logout
                         </a>
@@ -35,9 +35,9 @@
                     </div>
                     <a href="/profile/edit">
                         @if(Auth::user()->profile_picture)
-                        <img src="{{ asset('storage/' . Auth::user()->profile_picture) }}" alt="Profile Picture" class="profile-picture">
+                        <img src="{{ Storage::disk('s3')->url(Auth::user()->profile_picture) }}" alt="Profile Picture" class="profile-picture">
                         @else
-                        <img src="{{ asset('images/default-profile.png') }}" alt="Default Profile Picture" class="profile-picture">
+                        <img src="{{ \Storage::disk('s3')->url($user->profile_picture) }}" alt="Default Profile Picture" class="profile-picture">
                         @endif
                     </a>
                 </li>
