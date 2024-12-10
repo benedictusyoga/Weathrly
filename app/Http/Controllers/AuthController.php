@@ -31,6 +31,7 @@ class AuthController extends Controller
             'rainData' => $data['rainData'] ?? [],
             'city' => $request->input('city', 'Jakarta'),
             'message' => $data['message'] ?? '',
+            'locations' => $weatherController->locations, // Pass locations to the view
         ]);
     }
 

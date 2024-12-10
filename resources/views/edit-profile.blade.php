@@ -1,3 +1,5 @@
+<link href="{{ asset('css/reportIndexStyle.css') }}" rel="stylesheet">
+
 @extends('layout.app')
 
 @section('content')

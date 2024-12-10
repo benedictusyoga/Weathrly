@@ -2,7 +2,7 @@
 
 @section('content')
 
-<!-- <link href="{{ asset('css/reportIndexStyle.css') }}" rel="stylesheet"> -->
+<link href="{{ asset('css/reportIndexStyle.css') }}" rel="stylesheet">
 
 <div class="container mt-4">
     <h2>Daftar Laporan Lingkungan</h2>
