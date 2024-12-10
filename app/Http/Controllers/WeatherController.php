@@ -11,7 +11,7 @@ use Illuminate\Support\Collection;
 
 class WeatherController extends Controller
 {
-    protected $locations = [
+    public $locations = [
         'Jakarta' => ['lat' => -6.2146, 'lon' => 106.8451],
         'Tangerang' => ['lat' => -6.1781, 'lon' => 106.63],
     ];

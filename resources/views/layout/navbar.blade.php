@@ -114,31 +114,37 @@
                 </ul>
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item d-flex align-items-center">
-                        <div class="user-info d-flex flex-column align-items-start">
-                            <a class="user-name nav-link text-white mb-0 p-0" href="/profile/edit" style="font-family: 'Inter', sans-serif;">
-                                {{ Auth::user()->name }}
+                        <div class="user-info d-flex flex-column align-items-end">
+                            <a class="user-name nav-link text-white mb-0 px-4 pb-0" href="/profile/edit" style="font-family: 'Inter', sans-serif; font-size: 1.8vh; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight:1000;">
+                                {{ Str::limit(Auth::user()->name, 15) }} <!-- Limit name to 15 characters -->
                             </a>
-                            <a class="btn btn-sm btn-outline-light logout-button" href="{{ route('logout') }}"
-                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <a class="btn btn-sm btn-outline-light logout-button pt-0" href="{{ route('logout') }}" style="font-size: 1.7vh;" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 Logout
                             </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
                             </form>
                         </div>
+                    </li>
+                    <li class="nav-item">
                         <a href="/profile/edit">
                             @if(Auth::user()->profile_picture)
                             <img src="{{ Storage::disk('s3')->url(Auth::user()->profile_picture) }}" alt="Profile Picture" class="profile-picture">
                             @else
-                            <img src="{{ \Storage::disk('s3')->url($user->profile_picture) }}" alt="Default Profile Picture" class="profile-picture">
+                            <img src="{{ Storage::disk('s3')->url('default-profile.jpg') }}" alt="Default Profile Picture" class="profile-picture">
                             @endif
                         </a>
                     </li>
                 </ul>
+
+
+
             </div>
             @endauth
         </div>
     </nav>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 
 </html>
