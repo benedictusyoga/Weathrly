@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="{{ asset('css/navbarStyle.css') }}" rel="stylesheet">
+    <!-- <link href="{{ asset('css/navbarStyle.css') }}" rel="stylesheet"> -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -115,10 +115,10 @@
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item d-flex align-items-center">
                         <div class="user-info d-flex flex-column align-items-end">
-                            <a class="user-name nav-link text-white mb-0 px-4 pb-0" href="/profile/edit" style="font-family: 'Inter', sans-serif; font-size: 1.8vh; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight:1000;">
+                            <a class="user-name nav-link text-white nav-hover mb-0 px-4 py-0 m-0" href="/profile/edit" style="font-family: 'Inter', sans-serif; font-size: 2.5vh; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight:1000;">
                                 {{ Str::limit(Auth::user()->username, 15) }} <!-- Limit name to 15 characters -->
                             </a>
-                            <a class="btn btn-sm btn-outline-light logout-button pt-0" href="{{ route('logout') }}" style="font-size: 1.7vh;" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <a class="btn btn-sm btn-outline-light logout-button pt-0 m-0" href="{{ route('logout') }}" style="font-size: 1.7vh;" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 Logout
                             </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
