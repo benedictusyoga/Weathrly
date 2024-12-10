@@ -5,8 +5,79 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weathrly</title>
-    <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/regisStyle.css') }}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: url('https://weathrly.s3.ap-southeast-2.amazonaws.com/fabio-jock-pvh68_D9qqI-unsplash.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Inter', sans-serif;
+            color: #fff;
+        }
+
+        form {
+            background: transparent;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        form label {
+            display: block;
+            text-align: left;
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        h1 {
+            color: white;
+            font-weight: bold
+        }
+
+        label {
+            display: flex;
+            font-weight: bold;
+            color: white;
+        }
+
+        .card {
+            background: transparent;
+            border: none;
+        }
+
+        .form-control {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: none;
+        }
+
+        .btn-success {
+            font-weight: bold;
+            background-color: #007bff;
+            border: none;
+        }
+
+        .btn-success:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            color: white;
+            text-align: center;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        a.text-info:hover {
+            color: #0052aa !important;
+            text-decoration: none;
+        }
+
+        .custom-margin {
+            margin-top: 100px;
+        }
+    </style>
 </head>
 
 <body>
