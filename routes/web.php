@@ -8,25 +8,10 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ReportController;
 
-// Route::middleware(['auth'])->get('/landing', function () {
-//     return view('landing');
-// })->name('landing');
-
 Route::get('/', function () {
-    // if (Auth::check()) {
-    //     if (Auth::user()->role === 'admin') {
-    //         return redirect()->route('dashboard');
-    //     }
-    //     return redirect()->route('landing'); // Redirect to landing if logged in
-    // }
     return redirect()->route('landing');
 });
 
-// Route::get('/', function () {
-//     return view('landing');
-// });
-
-// Route::get('/landing', [AuthController::class, 'landing'])->name('landing');
 Route::get('/landing', [AuthController::class, 'landing'])->name('landing');
 Route::get('/reportTemp', [WeatherController::class, 'showWeather'])->name('report');
 
@@ -50,7 +35,6 @@ Route::get('/reports/{report}/edit', [ReportController::class, 'edit'])->name('r
 Route::put('/reports/{report}', [ReportController::class, 'update'])->name('reports.update');
 Route::delete('/reports/{report}', [ReportController::class, 'destroy'])->name('reports.destroy');
 
-
-// Route::middleware(['auth'])->get('/landing', function (){
-//     return view('landing');
-// })->name('landing');
+Route::get('/profile/edit', [AuthController::class, 'editProfileForm'])->name('profile.edit');
+Route::put('/profile/update', [AuthController::class, 'updateProfile'])->name('profile.update');
+Route::delete('/profile-picture/delete', [AuthController::class, 'deleteProfilePicture'])->name('profile.picture.delete');

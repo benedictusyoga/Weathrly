@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+.navbar{
+    margin-top: 15px;
+    z-index: 500;
+}
+
+.navbar-brand span {
+    font-weight: bold;
+}
+
+.navbar-nav .nav-link {
+    font-size: 18px;
+}
+
+.btn-outline-light {
+    padding: 0.3rem 0.7rem;
+    font-size: 14px;
+}
+
+.nav-buttons{
+    padding-left: 13%;
+}
+
+
+.nav-hover {
+    transition: color 0.3s ease;
+}
+
+/* Hover Styling */
+.nav-hover:hover {
+    color: gray !important; 
+}
+
+.profile-picture {
+    width: 60px; /* Perbesar ukuran gambar */
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-name {
+    position: relative;
+    top: 10%; /* Geser nama ke bawah */
+    left: 12%; /* Geser nama ke kiri */
+    font-size: 16px; /* Ukuran teks */
+}
+
+.logout-button {
+    background: none;
+    border: none;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: color 0.3s ease; /* Tambahkan animasi perubahan warna */
+}
+
+/* Hover Effect for Logout Button */
+.logout-button:hover {
+    color: red; /* Ubah warna menjadi merah */
+    background: none;
+}
+
+.logout-button:focus {
+    outline: none; /* Hilangkan outline saat fokus */
+}
+
+/* Name and Logout Button Spacing */
+.d-flex.flex-column {
+    gap: 0px; /* Menghilangkan jarak antara nama dan logout button */
+}
