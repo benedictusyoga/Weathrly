@@ -7,6 +7,7 @@ use App\Models\customer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class AuthController extends Controller
 {
@@ -49,7 +50,7 @@ class AuthController extends Controller
         }
 
         // Set default profile picture path
-        $defaultProfilePicturePath = 'profile_pictures/default-profile.png';
+        $defaultProfilePicturePath = 'profile_pictures/user(1).png';
 
         $customer = new Customer();
         $customer->name = $request->name;
@@ -117,7 +118,10 @@ class AuthController extends Controller
 
     public function updateProfile(Request $request)
     {
+        $file = $request->file('profile_picture');
+
         $user = Auth::user();
+
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
@@ -127,7 +131,18 @@ class AuthController extends Controller
 
         // Update profile picture if provided
         if ($request->hasFile('profile_picture')) {
-            $path = $request->file('profile_picture')->store('profile_pictures', 'public');
+            $defaultProfilePicturePath = 'profile_pictures/user(1).png';
+
+            // Delete the previous profile picture from S3, if it's not the default picture
+            if ($user->profile_picture && $user->profile_picture !== $defaultProfilePicturePath) {
+                // Delete the previous profile picture from S3
+                \Storage::disk('s3')->delete($user->profile_picture);
+            }
+
+            // Upload the new profile picture to S3
+            $path = $file->store('profile_pictures', 's3');
+
+            // Update the user's profile picture path
             $user->profile_picture = $path;
         }
 
@@ -142,11 +157,14 @@ class AuthController extends Controller
     public function deleteProfilePicture(Request $request)
     {
         $user = Auth::user();
-        $defaultProfilePicturePath = 'profile_pictures/default-profile.png';
+        $defaultProfilePicturePath = 'profile_pictures/user(1).png';
 
         if ($user->profile_picture !== $defaultProfilePicturePath) {
             // Delete the file from storage
-            \Storage::delete('public/' . $user->profile_picture);
+            if (\Storage::disk('s3')->exists($user->profile_picture)) {
+                // Delete the file from S3
+                \Storage::disk('s3')->delete($user->profile_picture);
+            }
 
             // Reset the profile_picture field to null
             $user->profile_picture = $defaultProfilePicturePath;
