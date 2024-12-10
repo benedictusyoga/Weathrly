@@ -5,7 +5,7 @@
     <h2>Laporkan Kondisi Lingkungan</h2>
 
     @if(session('success'))
-    <div class="alert alert-success">{{ session('success') }}</div>
+    <div class="alert alert-success alert-dismissible fade show">{{ session('success') }}</div>
     @endif
 
     <form action="{{ route('reports.store') }}" method="POST" enctype="multipart/form-data">

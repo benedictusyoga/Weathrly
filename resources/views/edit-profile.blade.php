@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('content')
-<div class="container py-5">
+<div class="container py-2">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card shadow">
@@ -43,7 +43,7 @@
 
                         <div class="mb-3">
                             <label for="profile_picture" class="form-label">Profile Picture</label>
-                            <input type="file" name="profile_picture" id="profile_picture" class="form-control">
+                            <input type="file" name="profile_picture" id="profile_picture" class="form-control" accept="image/*">
                             @if($user->profile_picture)
                             <div class="mt-3 text-center">
                                 <div class="profile-picture-container" style="width: 200px; height: 200px; overflow: hidden; border-radius: 10px; display: inline-block;">
