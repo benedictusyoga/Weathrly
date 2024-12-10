@@ -15,21 +15,22 @@
     <div class="overlay" style=" position: fixed; bottom: 0; left: 0; width: 100%; height: 150px; background: linear-gradient(to top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0)); z-index: 5;"></div>
     @include('layout.navbar')
     <div class="content" style="position: relative; z-index: 10; margin: 0 auto; margin-top: -5%;">
-        <div class="main-box @guest guest-mode @endguest" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 40vh; color: white; text-align: center; margin-top:175px;">
-            @guest
+        @guest
+        <div class="main-box @guest guest-mode @endguest" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 80vh; color: white; text-align: center; margin-top:175px;">
             <h1 class="display-1 fw-bold">Welcome to WEATHRLY</h1>
             <p>Your trusted source for weather updates.</p>
             <div class="container">
                 <a href="/login" class="btn btn-primary" role="button">Login</a>
                 <a href="/register" class="btn btn-secondary" role="button">Register</a>
             </div>
-            @endguest
-
-            @auth
+        </div>
+        @endguest
+        @auth
+        <div class="main-box @guest guest-mode @endguest" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 40vh; color: white; text-align: center; margin-top:175px;">
             <h1 class="display-1 fw-bold">Welcome, <span>{{ Str::limit(Auth::user()->name, 10) }}</span></h1>
             <p>Your trusted source for weather updates.</p>
-            @endauth
         </div>
+        @endauth
 
         <div class="weather-det" style="padding: 20px;">
             @auth

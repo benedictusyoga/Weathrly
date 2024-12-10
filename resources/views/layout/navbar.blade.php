@@ -116,7 +116,7 @@
                     <li class="nav-item d-flex align-items-center">
                         <div class="user-info d-flex flex-column align-items-end">
                             <a class="user-name nav-link text-white mb-0 px-4 pb-0" href="/profile/edit" style="font-family: 'Inter', sans-serif; font-size: 1.8vh; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight:1000;">
-                                {{ Str::limit(Auth::user()->name, 15) }} <!-- Limit name to 15 characters -->
+                                {{ Str::limit(Auth::user()->username, 15) }} <!-- Limit name to 15 characters -->
                             </a>
                             <a class="btn btn-sm btn-outline-light logout-button pt-0" href="{{ route('logout') }}" style="font-size: 1.7vh;" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 Logout

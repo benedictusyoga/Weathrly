@@ -12,14 +12,17 @@ use Illuminate\Support\Collection;
 class WeatherController extends Controller
 {
     public $locations = [
-        'Jakarta' => ['lat' => -6.2146, 'lon' => 106.8451],
-        'Tangerang' => ['lat' => -6.1781, 'lon' => 106.63],
+        'BINUS @Kemanggisan' => ['lat' => -6.201646453530158, 'lon' => 106.78222208589429],
+        'BINUS @Alam Sutera' => ['lat' => -6.223032137332282, 'lon' => 106.64906698564837],
+        'BINUS @Semarang' => ['lat' => -6.9474938345528, 'lon' => 110.38016475640173],
+        'BINUS @Malang' => ['lat' => -7.9396293308822745, 'lon' => 112.68111949744234],
+        'BINUS @Bandung' => ['lat' => -6.915237476458975, 'lon' => 107.59358245690747]
     ];
 
     public function showWeather(Request $request)
     {
         // Mendapatkan kota dari request, default 'Jakarta'
-        $city = $request->input('city', 'Jakarta');
+        $city = $request->input('city', 'BINUS @Kemanggisan');
 
         // Check if the city is supported
         if (!isset($this->locations[$city])) {
