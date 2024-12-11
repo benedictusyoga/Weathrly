@@ -16,7 +16,7 @@
 
 <body style="margin: 0; padding: 0; background: url('https://weathrly.s3.ap-southeast-2.amazonaws.com/fabio-jock-pvh68_D9qqI-unsplash.jpg') no-repeat center center fixed;background-size: cover;">
     @include('layout.navbar')
-    <div class="container" style="margin-top:80px;">
+    <div class="d-flex justify-content-center align-items-center" style="margin-top:80px;">
         @yield('content')
     </div>
 </body>
