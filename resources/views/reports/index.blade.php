@@ -91,6 +91,7 @@
         overflow-y: auto;
         overflow-x: hidden;
         min-width: 200px;
+        max-width: 600px;
         /* Prevent content cut-off near scrollbar */
     }
 
