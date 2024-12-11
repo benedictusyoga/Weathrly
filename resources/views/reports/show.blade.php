@@ -8,7 +8,7 @@
             <h2 class="mb-0 fw-bold">{{ $report->title }}</h2>
         </div>
 
-        <img src="{{ $report->image_path ? Storage::disk('s3')->url($report->image_path) : 'https://via.placeholder.com/150' }}" class="card-img-top" alt="Image">
+        <img src="{{ $report->image_path ? Storage::disk('s3')->url($report->image_path) : 'https://via.placeholder.com/150' }}" class="card-img-top" alt="Image" style="height:200px; object-fit:cover;">
 
         <div class="card-body">
             <p class="card-text small card-text fw-normal">{{ $report->description }}</p>

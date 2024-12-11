@@ -6,7 +6,9 @@
 
 
 @if(session('success'))
-<div class="alert alert-success alert-dismissible fade show">{{ session('success') }}</div>
+<div class="alert alert-success alert-dismissible fade show">{{ session('success') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
 @endif
 <div class="overlay" style=" position: fixed; bottom: 0; left: 0; width: 100%; height: 150px; background: linear-gradient(to top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0)); z-index: -5;"></div>
 <!-- Top Controls -->
@@ -40,6 +42,7 @@
         @empty
         <div class="alert alert-warning text-center alert-dismissible fade show">
             Tidak ada laporan ditemukan.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @endforelse
     </div>
