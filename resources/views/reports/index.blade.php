@@ -8,31 +8,33 @@
 @if(session('success'))
 <div class="alert alert-success alert-dismissible fade show">{{ session('success') }}</div>
 @endif
+<div class="overlay" style=" position: fixed; bottom: 0; left: 0; width: 100%; height: 150px; background: linear-gradient(to top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0)); z-index: -5;"></div>
 <!-- Top Controls -->
 <div class="content-container">
     <div style="width:50vw; min-width:250px;">
-        <h2 class="display-5 mb-4 pt-0 text-white">Daftar Laporan Lingkungan</h2>
+        <h2 class="display-5 mb-4 pt-1 text-white fw-bold">USER ENVIRONMENT REPORTS</h2>
         <form action="{{ route('reports.index') }}" method="GET" class="d-flex">
-            <input type="text" name="search" class="form-control me-2" placeholder="Cari laporan berdasarkan judul atau lokasi" value="{{ request('search') }}">
-            <button type="submit" class="btn btn-success">Cari</button>
+            <input type="text" name="search" class="form-control me-2" placeholder="Search Reports" value="{{ request('search') }}">
+            <button type="submit" class="btn btn-success">Search</button>
         </form>
     </div>
     <!-- Scrollable Feed -->
-    <div class="feed-container justify-content-center align-items-center">
+    <div class="feed-container justify-content-center align-items-center bg-opacity-50 p-4 rounded-3 shadow-lg">
         <div class="add-btn">
-            <a href="{{ route('reports.create') }}" class="btn btn-primary rounded-circle p-0" style="width: 60px; height: 60px; font-size: 50px;">
-                +
+            <a href="{{ route('reports.create') }}" class="btn btn-primary rounded-circle p-0 shadow-lg" style="width: 60px; height: 60px;">
+                <span style=" font-size: 50px; position: absolute; top:-12px;">+</span>
             </a>
-            <p class="text-white">Add Report</p>
+            <p class="text-white bg-primary p-0 px-3 rounded mt-2 fw-bold">Add Report</p>
         </div>
         @forelse($reports as $report)
         <div class="card shadow-sm mb-3">
             <img src="{{ $report->image_path ? Storage::disk('s3')->url($report->image_path) : 'https://via.placeholder.com/150' }}" class="card-img-top" alt="Image">
             <div class="card-body">
-                <h5 class="card-title text-truncate">{{ $report->title }}</h5>
-                <p class="card-text">{{ Str::limit($report->description, 100) }}</p>
-                <p class="text-muted small"><strong>Lokasi:</strong> {{ $report->location_name }}</p>
-                <a href="{{ route('reports.show', $report) }}" class="btn btn-primary btn-sm">Lihat Detail</a>
+                <h5 class="card-title text-truncate display-5 fw-semibold">{{Str::limit($report->title, 13) }}</h5>
+                <p class="card-text fw-normal"><Strong>Description:</Strong> {{ Str::limit($report->description, 100) }}</p>
+                <hr>
+                <p class="text-muted small fst-italic"><strong>Location:</strong> {{ $report->location_name }}</p>
+                <a href="{{ route('reports.show', $report) }}" class="btn btn-primary btn-sm fw-bold py-1 px-4">See Report Detail > </a>
             </div>
         </div>
         @empty
