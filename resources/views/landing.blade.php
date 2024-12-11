@@ -35,8 +35,8 @@
         <div class="weather-det" style="padding: 20px;">
             @auth
             <!-- Weather Form Section -->
-            <form action="{{ route('landing') }}" method="GET" class="mt-3">
-                <div class="form-container d-flex justify-content-center row m-2 align-items-center">
+            <form action="{{ route('landing') }}" method="GET" class="mt-0">
+                <div class="form-container d-flex justify-content-center row mx-3 my-2 align-items-center">
                     <div class="col-md-2 text-end">
                         <label for="city" class="form-label fw-bold" style="color:white; font-size:3vh;">Choose City</label>
                     </div>
@@ -58,7 +58,7 @@
             <div class="container mt-3">
                 @if(!empty($rainData))
                 <h3 class="text-center fw-bold" style="color: white;">Weather Forecast for {{ $city }}</h3>
-                <div class="list-group" style=" background: white; border-radius: 10px; padding: 10px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); max-width: 60%; margin: 0 auto;">
+                <div class="list-group" style=" background: white; border-radius: 10px; padding: 10px; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); min-width: 250px; max-width: 50vw; margin: 0 auto;">
                     @foreach($rainData as $rain)
                     <div class="list-group-item" style=" background-color: rgba(255, 255, 255, 0.9); border: 0; color: #333; font-size: 0.9rem; padding: 8px 10px; margin: auto;">
                         @if(number_format($rain['rain_mm'], 2) < 0.1)

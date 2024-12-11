@@ -29,7 +29,7 @@ class AuthController extends Controller
 
         return view('landing', [
             'rainData' => $data['rainData'] ?? [],
-            'city' => $request->input('city', 'Jakarta'),
+            'city' => $request->input('city', 'BINUS @Kemanggisan'),
             'message' => $data['message'] ?? '',
             'locations' => $weatherController->locations, // Pass locations to the view
         ]);
