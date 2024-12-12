@@ -4,8 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link href="{{ asset('css/navbarStyle.css') }}" rel="stylesheet"> -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
@@ -32,19 +30,16 @@
             padding-left: 13%;
         }
 
-
         .nav-hover {
             transition: color 0.3s ease;
         }
 
-        /* Hover Styling */
         .nav-hover:hover {
             color: gray !important;
         }
 
         .profile-picture {
             width: 60px;
-            /* Perbesar ukuran gambar */
             height: 60px;
             border-radius: 50%;
             object-fit: cover;
@@ -53,11 +48,8 @@
         .user-name {
             position: relative;
             top: 10%;
-            /* Geser nama ke bawah */
             left: 12%;
-            /* Geser nama ke kiri */
             font-size: 16px;
-            /* Ukuran teks */
         }
 
         .logout-button {
@@ -68,25 +60,19 @@
             cursor: pointer;
             font-family: 'Inter', sans-serif;
             transition: color 0.3s ease;
-            /* Tambahkan animasi perubahan warna */
         }
 
-        /* Hover Effect for Logout Button */
         .logout-button:hover {
             color: red;
-            /* Ubah warna menjadi merah */
             background: none;
         }
 
         .logout-button:focus {
             outline: none;
-            /* Hilangkan outline saat fokus */
         }
 
-        /* Name and Logout Button Spacing */
         .d-flex.flex-column {
             gap: 0px;
-            /* Menghilangkan jarak antara nama dan logout button */
         }
     </style>
 </head>
@@ -100,7 +86,7 @@
                 <span class="ms-2" style="font-family: 'Inter', sans-serif; font-size: 20px;">WEATHRLY</span>
             </a>
             @auth
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <button class="navbar-toggler" type="button" id="navbar-toggler">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -116,7 +102,7 @@
                     <li class="nav-item d-flex align-items-center">
                         <div class="user-info d-flex flex-column align-items-end">
                             <a class="user-name nav-link text-white nav-hover mb-0 px-4 py-0 m-0" href="/profile/edit" style="font-family: 'Inter', sans-serif; font-size: 2.5vh; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight:1000;">
-                                {{ Str::limit(Auth::user()->username, 15) }} <!-- Limit name to 15 characters -->
+                                {{ Str::limit(Auth::user()->username, 15) }}
                             </a>
                             <a class="btn btn-sm btn-outline-light logout-button pt-0 m-0" href="{{ route('logout') }}" style="font-size: 1.7vh;" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 Logout
@@ -136,15 +122,17 @@
                         </a>
                     </li>
                 </ul>
-
-
-
             </div>
             @endauth
         </div>
     </nav>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+        // JavaScript to toggle the navbar
+        document.getElementById('navbar-toggler').addEventListener('click', function () {
+            const navbarNav = document.getElementById('navbarNav');
+            navbarNav.classList.toggle('collapse');
+        });
+    </script>
 </body>
 
 </html>
