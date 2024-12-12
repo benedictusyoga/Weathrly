@@ -13,8 +13,8 @@
 <div class="overlay" style=" position: fixed; bottom: 0; left: 0; width: 100%; height: 150px; background: linear-gradient(to top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0)); z-index: -5;"></div>
 <!-- Top Controls -->
 <div class="content-container">
+    <h2 class="display-5 mt-0 pt-1 text-white fw-bold" style="text-align:center;">USER ENVIRONMENT REPORTS</h2>
     <div style="width:50vw; min-width:250px;">
-        <h2 class="display-5 mb-4 pt-1 text-white fw-bold">USER ENVIRONMENT REPORTS</h2>
         <form action="{{ route('reports.index') }}" method="GET" class="d-flex">
             <input type="text" name="search" class="form-control me-2" placeholder="Search Reports" value="{{ request('search') }}">
             <button type="submit" class="btn btn-success">Search</button>
@@ -23,8 +23,11 @@
     <!-- Scrollable Feed -->
     <div class="feed-container justify-content-center align-items-center bg-opacity-50 p-4 rounded-3 shadow-lg">
         <div class="add-btn mb-3">
+            <div class="alert alert-warning alert-dismissible fade show" style="position:absolute; z-index:500; width:max-content; right:10px; bottom:6vh;"><strong>Add a New Report Here!</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
             <a href="{{ route('reports.create') }}" class="btn btn-success rounded-circle p-0 shadow-lg" style="width: 60px; height: 60px;">
-                <span style=" font-size: 50px; position: absolute; top:-12px;">+</span>
+                <span style=" font-size: 50px; position: absolute; top:-1.5vh;">+</span>
             </a>
             <!-- <p class="text-white bg-success bg-opacity-25 p-0 px-3 rounded mt-2 fw-bold">Add Report</p> -->
         </div>
@@ -50,20 +53,26 @@
             </div>
         </div>
         @empty
-        <div class="alert alert-warning text-center alert-dismissible fade show" style="position:absolute;">
-            Tidak ada laporan ditemukan.
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <div class="text-center d-flex justify-content-center flex-column" style="">
+            <div class="bg-warning px-4 py-2 rounded-pill fw-semibold mb-2">No Reports Yet :(</div>
+            <p>Please add a report with the button Below</p>
+            <div class="mb-3">
+                <a href="{{ route('reports.create') }}" class="btn btn-success rounded-pill p-0 shadow-lg" style="width: 100px; height: 40px;">
+                    <span style=" font-size: 30px; position:relative; top:-15%;">+</span>
+                </a>
+                <!-- <p class="text-white bg-success bg-opacity-25 p-0 px-3 rounded mt-2 fw-bold">Add Report</p> -->
+            </div>
         </div>
         @endforelse
         <!-- Pagination -->
-        <div class="d-flex flex-column justify-content-center align-items-center mt-4">
+        <div class="d-flex flex-column justify-content-center align-items-center mt-4" style="position:absolute; bottom:0px; left:0px; width:100vw;">
             <!-- Showing X out of X results -->
 
             <!-- Pagination buttons -->
-            <div>
+            <div class="mb-0 d-flex align-items-start" style="position:relative; margin-top:85px;">
                 {{ $reports->onEachSide(1)->links('pagination::bootstrap-4') }}
             </div>
-            <p class="text-dark mb-2">
+            <p class="text-dark mt-0" style="position:relative; top:-10px;">
                 Showing <strong>{{ $reports->firstItem() }}</strong> to <strong>{{ $reports->lastItem() }}</strong> of <strong>{{ $reports->total() }}</strong> results
             </p>
         </div>
@@ -81,7 +90,7 @@
         align-items: center;
         text-align: center;
         position: fixed;
-        bottom: 1vh;
+        bottom: 4vh;
         right: 2rem;
         z-index: 999;
     }
@@ -110,7 +119,7 @@
         justify-content: center;
         align-items: center;
         place-self: center;
-        max-height: calc(100vh - 250px);
+        max-height: calc(100vh - 300px);
         /* Adjust height as needed */
         overflow-y: auto;
         overflow-x: hidden;

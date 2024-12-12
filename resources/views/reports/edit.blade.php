@@ -36,12 +36,12 @@
     
             <div class="mb-3 mt-4">
                 <label for="image" class="form-label">Upload Photo (Optional)</label>
-                <input type="file" class="form-control" id="image" name="image">
+                <input type="file" class="form-control" id="image" name="image" accept="image/*">
             </div>
     
             <div class="card-footer d-flex justify-content-between align-items-center p-4">
-                <a href="{{ route('reports.show', $report) }}" class="btn btn-danger">Cancel</a>
-                <button type="submit" class="btn btn-warning">Finalize & Update Report</button>
+                <a href="{{ route('reports.show', $report) }}" class="btn btn-warning">Cancel</a>
+                <button type="submit" class="btn btn-primary"><strong>Update</strong> Report</button>
             </div>
         </form>
         

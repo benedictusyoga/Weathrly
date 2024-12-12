@@ -115,9 +115,9 @@
                     <li class="nav-item">
                         <a href="/profile/edit">
                             @if(Auth::user()->profile_picture)
-                            <img src="{{ Storage::disk('s3')->url(Auth::user()->profile_picture) }}" alt="Profile Picture" class="profile-picture" style="border: solid 2px #212529;">
+                            <img src="{{ Storage::disk('s3')->url(Auth::user()->profile_picture) }}" alt="Profile Picture" class="profile-picture" style="border: solid 2px white;">
                             @else
-                            <img src="{{ Storage::disk('s3')->url('default-profile.jpg') }}" alt="Default Profile Picture" class="profile-picture" style="border: solid 2px #212529;">
+                            <img src="{{ Storage::disk('s3')->url('default-profile.jpg') }}" alt="Default Profile Picture" class="profile-picture" style="border: solid 2px white;">
                             @endif
                         </a>
                     </li>

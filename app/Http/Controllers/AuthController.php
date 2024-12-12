@@ -37,54 +37,53 @@ class AuthController extends Controller
 
     public function registerSubmit(Request $request)
     {
+        // Validate all fields are required
         $request->validate([
             'name' => 'required|string|max:255',
             'age' => 'required|integer|min:1',
             'username' => 'required|string|unique:customer,username|max:255',
-            'password' => 'required|string',
+            'password' => 'required|string|min:6', // Ensure password is at least 6 characters
         ]);
 
-        $usernameExists = Customer::where('username', $request->username)->exists();
+        // Create the customer
+        $customer = Customer::create([
+            'name' => $request->name,
+            'age' => $request->age,
+            'username' => $request->username,
+            'password' => $request->password, // Will be encrypted in the model
+            'profile_picture' => 'profile_pictures/user(1).png',
+        ]);
 
-        if ($usernameExists) {
-            return redirect()->back()->withErrors(['username' => 'Username already taken. Please choose another.']);
-        }
-
-        // Set default profile picture path
-        $defaultProfilePicturePath = 'profile_pictures/user(1).png';
-
-        $customer = new Customer();
-        $customer->name = $request->name;
-        $customer->age = $request->age;
-        $customer->username = $request->username;
-        $customer->password = bcrypt($request->password);
-        $customer->profile_picture = $defaultProfilePicturePath;
-        $customer->save();
+        // Log in the customer
         Auth::login($customer);
-        // return redirect('/');
+
         return redirect('/landing')->with('success', 'Registration successful!');
     }
+
+
 
     public function login(Request $request)
     {
 
         $validate = $request->validate([
-            'username' => 'required|string',
-            'password' => 'required|string',
+            'username' => 'required|string|',
+            'password' => 'required|string|',
         ]);
 
         $user = Customer::where('username', $validate['username'])->first();
 
         if (!$user) {
             // If the username does not exist, return an error message
-            return redirect()->back()->withErrors(['register' => 'Username not registered, please register.']);
+            return redirect()->back()->withErrors(['username' => 'Username not registered, please register.']);
         }
 
 
+        // Check the credentials and attempt login
         if (Auth::attempt(['username' => $validate['username'], 'password' => $validate['password']])) {
+            // Regenerate the session to prevent fixation attacks
             $request->session()->regenerate();
 
-            // Check the user's role
+            // Determine user role and redirect accordingly
             $user = Auth::user(); // Get the authenticated user
             if ($user->role === 'admin') {
                 return redirect()->intended('/admin/dashboard'); // Redirect to admin dashboard
@@ -95,7 +94,7 @@ class AuthController extends Controller
         }
 
         // If login fails, return back with an error
-        return redirect()->back()->withErrors(['nama' => 'Username/password invalid']);
+        return redirect()->back()->withErrors(['password' => 'Invalid username or password.']);
         // return redirect()->route('login')->with(['username' => 'Username/Password Invalid']);
     }
 

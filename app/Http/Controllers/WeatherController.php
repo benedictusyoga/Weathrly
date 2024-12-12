@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Collection;
+use Carbon\Carbon;
 
 class WeatherController extends Controller
 {
@@ -21,16 +21,16 @@ class WeatherController extends Controller
 
     public function showWeather(Request $request)
     {
-        // Mendapatkan kota dari request, default 'Jakarta'
+        // Get the requested city or use default
         $city = $request->input('city', 'BINUS @Kemanggisan');
 
-        // Check if the city is supported
+        // Validate the city
         if (!isset($this->locations[$city])) {
-            return [
+            return response()->json([
                 'error' => 'Wilayah tidak didukung.',
                 'rainData' => [],
                 'message' => 'Kota tidak tersedia.',
-            ];
+            ], 400);
         }
 
         // Fetch weather data with caching
@@ -45,28 +45,31 @@ class WeatherController extends Controller
             if ($response->successful()) {
                 $forecast = $response->json();
                 $rainData = [];
+                $currentDate = Carbon::now()->startOfDay();
 
-                // Loop to extract rain data
+                // Extract rain data for today and future dates
                 foreach ($forecast['list'] as $forecastData) {
-                    for ($i = 0; $i < 3; $i++) {
+                    $forecastTime = Carbon::parse($forecastData['dt_txt']);
+                    
+                    // Only include forecasts starting from today
+                    if ($forecastTime->greaterThanOrEqualTo($currentDate)) {
                         if (isset($forecastData['rain']['3h']) && $forecastData['rain']['3h'] > 0) {
                             $rainPerHour = $forecastData['rain']['3h'] / 3;
                             $rainData[] = [
-                                'time' => \Carbon\Carbon::parse($forecastData['dt_txt'])->addHours($i)->format('Y-m-d H:i'),
+                                'time' => $forecastTime->format('D, d M y H:i'),
                                 'rain_mm' => $rainPerHour,
                             ];
                         }
                     }
                 }
 
-                // Return rain data or a message
                 return [
                     'rainData' => $rainData,
                     'message' => count($rainData) > 0 ? '' : 'Tidak ada hujan yang diprediksi dalam waktu dekat.',
                 ];
             } else {
-                // Log the error and return a fallback message
-                Log::error("Error from Weather API for {$city}: {$response->status()} - {$response->body()}");
+                // Log error and return fallback
+                Log::error("Weather API error for city {$city}: {$response->status()} - {$response->body()}");
                 return [
                     'error' => 'Gagal mengambil data cuaca.',
                     'rainData' => [],
@@ -78,7 +81,7 @@ class WeatherController extends Controller
         // Paginate rainData
         $rainData = collect($data['rainData']);
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
-        $perPage = 10; // Adjust number of results per page
+        $perPage = 10; // Number of results per page
         $paginatedRainData = new LengthAwarePaginator(
             $rainData->forPage($currentPage, $perPage)->values(),
             $rainData->count(),
@@ -87,6 +90,7 @@ class WeatherController extends Controller
             ['path' => $request->url(), 'query' => $request->query()]
         );
 
+        // Return the view with data
         return view('landing', [
             'city' => $city,
             'rainData' => $paginatedRainData,

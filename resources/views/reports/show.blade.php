@@ -21,7 +21,7 @@
              <div id="map" class="mb-4 rounded-5" style="height: 200px; width:90%;"></div>
          </div>
 
-        <div class="card-footer d-flex justify-content-evenly mt-3 pt-4 align-items-center">
+        <div class="card-footer d-flex justify-content-evenly mt-3 py-4 align-items-center">
             <form action="{{ route('reports.destroy', $report) }}" method="POST" class="d-inline">
                 @csrf
                 @method('DELETE')
@@ -35,7 +35,7 @@
 
         </div>
 
-        <div class="card-footer text-center mt-3">
+        <div class="card-footer text-center">
             <a href="{{ route('reports.index') }}" class="btn btn-link">
                 <i class="bi bi-arrow-left-circle">< Back to Reports</i>
             </a>
