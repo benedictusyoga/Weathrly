@@ -80,7 +80,7 @@ class ReportController extends Controller
         $report->save();
 
         // Arahkan ke halaman daftar laporan setelah berhasil disubmit
-        return redirect()->route('reports.index')->with('success', 'Laporan berhasil dikirim!');
+        return redirect()->route('reports.index')->with('success', "``{$report->title}`` has been successfully Reported");
     }
 
 
@@ -146,7 +146,7 @@ class ReportController extends Controller
         $report->save();
         $report->update($validated);
 
-        return redirect()->route('reports.index')->with('success', 'Laporan berhasil diperbarui!');
+        return redirect()->route('reports.index')->with('success', "Report ``{$report->title}`` has been successfully Updated!");
     }
     /**
      * Remove the specified resource from storage.
@@ -162,7 +162,7 @@ class ReportController extends Controller
             \Storage::disk('s3')->delete($report->image_path);
         }
         $report->delete();
-        return redirect()->route('reports.index')->with('success', 'Laporan berhasil dihapus!');
+        return redirect()->route('reports.index')->with('success', "Report ``{$report->title}`` has been successfully Deleted!");
     }
 
     private function getLocationName($latitude, $longitude)

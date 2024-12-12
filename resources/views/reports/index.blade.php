@@ -6,7 +6,7 @@
 
 
 @if(session('success'))
-<div class="alert alert-success alert-dismissible fade show">{{ session('success') }}
+<div class="alert alert-success alert-dismissible fade show" style="position:absolute; z-index:500; top:200px;">{{ session('success') }}
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 @endif
@@ -40,7 +40,7 @@
             </div>
         </div>
         @empty
-        <div class="alert alert-warning text-center alert-dismissible fade show">
+        <div class="alert alert-warning text-center alert-dismissible fade show" style="position:absolute;">
             Tidak ada laporan ditemukan.
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
