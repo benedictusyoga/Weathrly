@@ -22,21 +22,21 @@
     </div>
     <!-- Scrollable Feed -->
     <div class="feed-container justify-content-center align-items-center bg-opacity-50 p-4 rounded-3 shadow-lg">
-        <div class="add-btn">
-            <a href="{{ route('reports.create') }}" class="btn btn-primary rounded-circle p-0 shadow-lg" style="width: 60px; height: 60px;">
+        <div class="add-btn mb-3">
+            <a href="{{ route('reports.create') }}" class="btn btn-success rounded-circle p-0 shadow-lg" style="width: 60px; height: 60px;">
                 <span style=" font-size: 50px; position: absolute; top:-12px;">+</span>
             </a>
-            <p class="text-white bg-primary p-0 px-3 rounded mt-2 fw-bold">Add Report</p>
+            <!-- <p class="text-white bg-success bg-opacity-25 p-0 px-3 rounded mt-2 fw-bold">Add Report</p> -->
         </div>
         @forelse($reports as $report)
-        <div class="card shadow-sm mb-3">
+        <div class="card shadow-sm mb-3 px-2 py-3">
             <img src="{{ $report->image_path ? Storage::disk('s3')->url($report->image_path) : 'https://via.placeholder.com/150' }}" class="card-img-top" alt="Image">
-            <div class="card-body">
-                <h5 class="card-title text-truncate display-5 fw-semibold">{{Str::limit($report->title, 13) }}</h5>
-                <p class="card-text fw-normal"><Strong>Description:</Strong> {{ Str::limit($report->description, 100) }}</p>
+            <div class="card-body" style="width:100%;">
+                <h5 class="card-title text-truncate h1 fw-bold">{{Str::limit($report->title, 13) }}</h5>
+                <p class="card-text fw-normal small"><Strong>Description:</Strong> {{ Str::limit($report->description, 150) }}</p>
                 <hr>
                 <p class="text-muted small fst-italic"><strong>Location:</strong> {{ $report->location_name }}</p>
-                <a href="{{ route('reports.show', $report) }}" class="btn btn-primary btn-sm fw-bold py-1 px-4">See Report Detail > </a>
+                <div class="d-flex justify-content-end"><a href="{{ route('reports.show', $report) }}" class="btn btn-primary btn-sm fw-bold py-1 px-4 rounded-pill">See Report Detail > </a></div>
             </div>
         </div>
         @empty

@@ -1,9 +1,9 @@
 @extends('layout.app')
 
 @section('content')
-<div class="container d-flex mx-0 pt-5 justify-content-center align-items-center bg-opacity-10 shadow-lg" style="max-width:700px;">
+<div class="container d-flex mx-0 pt-5 mt-5 justify-content-center align-items-start bg-opacity-10 shadow-lg" style="max-width:700px; height:80vh; overflow-y:auto;">
     <div class="card shadow-lg border-0 rounded-5 mb-5" style="width:600px; min-width:200px;">
-        <div class="card-header bg-primary text-white">
+        <div class="card-header bg-primary text-white rounded-top-5 p-4">
             <h3 class="mb-0 h5">Now Viewing: </h3>
             <h2 class="mb-0 fw-bold">{{ $report->title }}</h2>
         </div>
@@ -21,15 +21,15 @@
              <div id="map" class="mb-4 rounded-5" style="height: 200px; width:90%;"></div>
          </div>
 
-        <div class="card-footer d-flex justify-content-between mt-3">
+        <div class="card-footer d-flex justify-content-evenly mt-3 pt-4 align-items-center">
             <form action="{{ route('reports.destroy', $report) }}" method="POST" class="d-inline">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="btn btn-danger rounded-pill">
+                <button type="submit" class="btn btn-danger rounded btn-sm">
                     <i class="bi bi-trash"></i> Delete Report
                 </button>
             </form>
-            <a href="{{ route('reports.edit', $report) }}" class="btn btn-warning rounded-pill">
+            <a href="{{ route('reports.edit', $report) }}" class="btn btn-warning rounded-pill btn-sm">
                 <i class="bi bi-pencil-square"></i> Edit Report
             </a>
 
