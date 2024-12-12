@@ -6,7 +6,7 @@
 
 
 @if(session('success'))
-<div class="alert alert-success alert-dismissible fade show" style="position:absolute; z-index:500; top:200px;">{{ session('success') }}
+<div class="alert alert-success alert-dismissible fade show" style="position:absolute; z-index:500; top:200px;">{!! session('success') !!}
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 @endif
@@ -36,7 +36,17 @@
                 <p class="card-text fw-normal small"><Strong>Description:</Strong> {{ Str::limit($report->description, 150) }}</p>
                 <hr>
                 <p class="text-muted small fst-italic"><strong>Location:</strong> {{ $report->location_name }}</p>
-                <div class="d-flex justify-content-end"><a href="{{ route('reports.show', $report) }}" class="btn btn-primary btn-sm fw-bold py-1 px-4 rounded-pill">See Report Detail > </a></div>
+
+            </div>
+            <div class="container card-footer">
+                <div class="d-flex justify-content-between flex-row align-items-end p-0">
+                    <div class="d-flex flex-column">
+                        <h5 class="h5 small mb-1"><strong>Updated:</strong></h5>
+                        <h5 class="h5 small mb-0"><i>{{ $report->updated_at->format('D, j M y') }}</i></h5>
+                    </div>
+
+                    <a href="{{ route('reports.show', $report) }}" class="btn btn-primary btn-sm fw-bold py-1 px-4 rounded-pill">See Detail > </a>
+                </div>
             </div>
         </div>
         @empty
@@ -45,13 +55,22 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         @endforelse
+        <!-- Pagination -->
+        <div class="d-flex flex-column justify-content-center align-items-center mt-4">
+            <!-- Showing X out of X results -->
+
+            <!-- Pagination buttons -->
+            <div>
+                {{ $reports->onEachSide(1)->links('pagination::bootstrap-4') }}
+            </div>
+            <p class="text-dark mb-2">
+                Showing <strong>{{ $reports->firstItem() }}</strong> to <strong>{{ $reports->lastItem() }}</strong> of <strong>{{ $reports->total() }}</strong> results
+            </p>
+        </div>
+
     </div>
 </div>
 
-<!-- Pagination -->
-<div class="d-flex justify-content-center mt-4">
-    {{ $reports->links() }}
-</div>
 
 
 <style>
