@@ -90,6 +90,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
+                @if(Auth::user()->role == 'user')
                 <ul class="navbar-nav mx-auto nav-buttons" style="font-family: 'Inter', sans-serif;">
                     <li class="nav-item">
                         <a class="nav-link text-white fw-bold nav-hover" href="{{ route('landing') }}">HOME</a>
@@ -98,6 +99,17 @@
                         <a class="nav-link text-white fw-bold nav-hover" href="/reportHome">REPORT</a>
                     </li>
                 </ul>
+                @elseif(Auth::user()->role == 'admin')
+                <ul class="navbar-nav mx-auto nav-buttons" style="font-family: 'Inter', sans-serif;">
+                    <li class="nav-item">
+                        <a class="nav-link text-white fw-bold nav-hover" href="{{ route('dashboard') }}">DASHBOARD</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white fw-bold nav-hover" href="/reportHome">REPORT</a>
+                    </li>
+                </ul>
+                @endif
+
                 <ul class="navbar-nav ms-auto align-items-center">
                     <li class="nav-item d-flex align-items-center">
                         <div class="user-info d-flex flex-column align-items-end">
@@ -128,7 +140,7 @@
     </nav>
     <script>
         // JavaScript to toggle the navbar
-        document.getElementById('navbar-toggler').addEventListener('click', function () {
+        document.getElementById('navbar-toggler').addEventListener('click', function() {
             const navbarNav = document.getElementById('navbarNav');
             navbarNav.classList.toggle('collapse');
         });
