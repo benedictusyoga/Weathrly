@@ -69,40 +69,44 @@
 
 <body style="overflow-x:hidden;">
     
-    <div class="d-flex justify-content-center align-items-center vh-100 flex-column mx-5">
+    <div class="d-flex justify-content-center align-items-center vh-100 flex-column mx-4">
         <h1 class="fw-bold mb-4 text-center text-white">Register to WEATHRLY</h1>
         <div class="col-md-4 d-flex justify-content-center">
-            <div class="card p-4" style="min-width:350px; max-width: 40vw;">
+            <div class="card p-3" style="min-width:300px; max-width: 40vw;">
                 <div class="card-body">
                     <form action="{{ route('register.post') }}" method="POST">
                         @csrf
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Name</label>
+                        <div class="mb-2">
+                            <label for="name" class="form-label mb-0">Name</label>
                             <input type="text" name="name" class="form-control" value="{{ old('name') }}" placeholder="Enter your full name...">
                             @error('name')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
 
-                        <div class="mb-3">
-                            <label for="age" class="form-label">Age</label>
+                        <div class="mb-2">
+                            <label for="age" class="form-label mb-0">Age</label>
                             <input type="number" name="age" class="form-control" value="{{ old('age') }}" placeholder="Enter your age...">
                             @error('age')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
 
-                        <div class="mb-3">
-                            <label for="username" class="form-label">Username</label>
+                        <div class="mb-2">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <label for="username" class="form-label mb-0 mt-2">Username</label>
+                                <span class="badge text-bg-danger rounded-pill">Permanent</span>
+                                <!-- <p class="text-danger small mt-1 mb-0">(<b>PERMANENT</b>)</p> -->
+                            </div>
                             <input type="text" name="username" class="form-control" value="{{ old('username') }}" placeholder="Enter your desired username...">
                             @error('username')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
-                            <p class="text-danger small mt-1">(Permanent & <b>CANNOT</b> be changed later)</p>
+                            
                         </div>
 
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
+                        <div class="mb-2">
+                            <label for="password" class="form-label mb-0">Password</label>
                             <input type="password" name="password" class="form-control" placeholder="Enter your password...">
                             @error('password')
                             <div class="text-danger">{{ $message }}</div>

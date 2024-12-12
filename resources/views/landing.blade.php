@@ -16,7 +16,7 @@
     @include('layout.navbar')
     <div class="content" style="position: relative; z-index: 10; margin: 0 auto; margin-top: -2%;">
         @guest
-        <div class="main-box @guest guest-mode @endguest" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 65vh; color: white; text-align: center; margin-top:175px;">
+        <div class="main-box @guest guest-mode @endguest" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 65vh; color: white; text-align: center; margin-top:22vh">
             <h1 class="display-1 fw-bold">Welcome to WEATHRLY</h1>
             <p>Your trusted source for weather updates.</p>
             <div class="container">
@@ -26,9 +26,10 @@
         </div>
         @endguest
         @auth
-        <div class="main-box @guest guest-mode @endguest mx-5" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 30vh; color: white; text-align: center; margin-top:175px;">
-            <h1 class="display-1 fw-bold">Welcome, <span>{{ Str::limit(Auth::user()->name, 10) }}</span></h1>
-            <p>Your trusted source for weather updates.</p>
+        <div class="main-box @guest guest-mode @endguest mx-3" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 30vh; color: white; text-align: center; margin-top:175px;">
+            <h1 class="fs-1 fw-bold p-0">Welcome,</h1>
+            <span class="display-2 p-0">{{ Str::limit(Auth::user()->name, 20) }}</span>
+            <!-- <p>Your trusted source for weather updates.</p> -->
         </div>
         @endauth
 
@@ -75,9 +76,10 @@
 
                     @endforeach
                 </div>
-                <div class="d-flex justify-content-center mt-3">
+                <div class="d-flex justify-content-center mt-4">
                     {{ $rainData->links('pagination::bootstrap-4') }}
                 </div>
+
                 @elseif(isset($message))
                 <div class="alert alert-info">
                     <p>{{ $message }}</p>
@@ -87,6 +89,7 @@
                     <p>No weather data available for this city.</p>
                 </div>
                 @endif
+
             </div>
             @endauth
         </div>

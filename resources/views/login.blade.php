@@ -60,21 +60,21 @@
             <div class="card-body">
                 <form action="{{ route('login.post') }}" method="POST">
                     @csrf
-                    <div class="mb-3">
-                        <label for="username" class="form-label">Username</label>
+                    <div class="mb-2">
+                        <label for="username" class="form-label mb-0">Username</label>
                         <input type="text" name="username" class="form-control" placeholder="Enter username..." value="{{ old('username') }}">
                         @error('username')
                         <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
+                    <div class="mb-2">
+                        <label for="password" class="form-label mb-0">Password</label>
                         <input type="password" name="password" class="form-control" placeholder="Enter password...">
                         @error('password')
                         <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
-                    <button type="submit" class="btn btn-success w-100">Login</button>
+                    <button type="submit" class="btn btn-success w-100 mt-4">Login</button>
                 </form>
                 <!-- @if ($errors->any())
                 <div class="alert alert-danger mt-3">
