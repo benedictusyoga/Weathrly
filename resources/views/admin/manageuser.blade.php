@@ -3,7 +3,7 @@
 @section('content')
 <div class="container mt-5">
     <div class="d-flex flex-row justify-content-between align-items-end">
-        <h1 class="display-5 mt-2 pt-1 mb-4 text-white fw-bold">Manage Users</h1>
+        <h1 class="display-5 mt-2 pt-1 mb-4 text-white fw-bold">Manage Customers</h1>
     </div>
     <form action="{{ route('manageuser') }}" method="GET" class="mb-4">
         <div class="input-group">
@@ -117,7 +117,7 @@
         /* Change text color for sort links */
         display: flex;
         align-items: center;
-        gap:5px;
+        gap: 5px;
     }
 
     .table th a:hover {
