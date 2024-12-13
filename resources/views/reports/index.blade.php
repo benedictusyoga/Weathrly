@@ -10,7 +10,6 @@
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 @endif
-<div class="overlay" style=" position: fixed; bottom: 0; left: 0; width: 100%; height: 150px; background: linear-gradient(to top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0)); z-index: -5;"></div>
 <!-- Top Controls -->
 <div class="content-container">
     <h2 class="display-5 mt-2 pt-1 mb-0 text-white fw-bold mx-4" style="text-align:center; text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);">ENVIRONMENT REPORTS</h2>
@@ -71,17 +70,20 @@
 
         <!-- Pagination buttons -->
         <div class="mb-0 d-flex align-items-start" style="position:relative; margin-top:85px;">
-            {{ $reports->onEachSide(1)->links('pagination::bootstrap-4') }}
+            <div class="custom-pagination">
+                {{ $reports->onEachSide(1)->links('pagination::bootstrap-4') }}
+            </div>
         </div>
-        <p class="text-dark mt-0" style="position:relative; top:-10px;">
+        <p class="px-4 py-2 bg-white text-dark rounded-pill" style="font-size:13px;position:relative; top:-15px;">
             Showing <strong>{{ $reports->firstItem() }}</strong> to <strong>{{ $reports->lastItem() }}</strong> of <strong>{{ $reports->total() }}</strong> results
         </p>
     </div>
 </div>
 
-
-
 <style>
+    .custom-pagination .page-link {
+        font-size: 12px;
+    }
 
     .add-btn {
         display: flex;
