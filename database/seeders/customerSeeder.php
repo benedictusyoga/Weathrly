@@ -27,7 +27,9 @@ class customerSeeder extends Seeder
                 'username' => $faker->lastName,
                 'password' => $encrypted,
                 'role' => 'user',
-                'profile_picture' => 'profile_pictures/default-profile.png'
+                'profile_picture' => 'profile_pictures/default-profile.png',
+                'created_at' => $faker->dateTime(),
+                'updated_at' => $faker->dateTime()
             ]);
         }
 

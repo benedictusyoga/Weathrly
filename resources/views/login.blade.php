@@ -69,26 +69,31 @@
                     </div>
                     <div class="mb-2">
                         <label for="password" class="form-label mb-0">Password</label>
-                        <input type="password" name="password" class="form-control" placeholder="Enter password...">
+                        <div class="input-group">
+                            <input type="password" id="password" name="password" class="form-control" placeholder="Enter password...">
+                            <button type="button" class="btn btn-outline-secondary" id="togglePassword">
+                                Show
+                            </button>
+                        </div>
                         @error('password')
                         <div class="text-danger">{{ $message }}</div>
                         @enderror
                     </div>
                     <button type="submit" class="btn btn-success w-100 mt-4">Login</button>
                 </form>
-                <!-- @if ($errors->any())
-                <div class="alert alert-danger mt-3">
-                    @foreach ($errors->all() as $error)
-                    {{ $error }}<br>
-                    @endforeach
-                </div>
-                @endif -->
                 <p class="mt-3 text-center">Don’t have a WEATHRLY account? <a href="{{ route('register') }}" class="btn-link fw-bold">REGISTER</a></p>
             </div>
-
-
         </div>
     </div>
+    <script>
+        document.getElementById('togglePassword').addEventListener('click', function () {
+            const passwordField = document.getElementById('password');
+            const isPassword = passwordField.type === 'password';
+
+            passwordField.type = isPassword ? 'text' : 'password';
+            this.textContent = isPassword ? 'Hide' : 'Show';
+        });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 

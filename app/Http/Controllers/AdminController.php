@@ -21,19 +21,33 @@ class AdminController extends Controller
         return view('admin.dashboard');
     }
 
-    public function manageuser()
+    public function manageuser(Request $request)
     {
         if (!Auth::check()) {
-            // Redirect to login if not authenticated
             return redirect()->route('login')->with('error', 'You must log in to access this page.');
         }
-        $user = Auth::user(); // Get the authenticated user
+
+        $user = Auth::user();
         if ($user->role === 'user') {
-            return redirect()->intended('/landing'); // Redirect to admin dashboard
+            return redirect()->intended('/landing');
         }
-        $users = customer::where('role', 'user')->get();
-        return view('admin.manageuser', compact('users'));
+
+        $search = $request->input('search'); // Get search query
+        $sortColumn = $request->input('sort', 'id'); // Default sort column
+        $sortDirection = $request->input('direction', 'asc'); // Default sort direction
+
+        $users = customer::where('role', 'user')
+            ->when($search, function ($query, $search) {
+                return $query->where('name', 'like', "%{$search}%")
+                    ->orWhere('username', 'like', "%{$search}%");
+            })
+            ->orderBy($sortColumn, $sortDirection) // Apply sorting
+            ->paginate(10);
+
+        return view('admin.manageuser', compact('users', 'sortColumn', 'sortDirection'));
     }
+
+
 
     public function deleteuser($id)
     {

@@ -96,35 +96,31 @@
                             <div class="d-flex align-items-center justify-content-between">
                                 <label for="username" class="form-label mb-0 mt-2">Username</label>
                                 <span class="badge text-bg-danger rounded-pill">Permanent</span>
-                                <!-- <p class="text-danger small mt-1 mb-0">(<b>PERMANENT</b>)</p> -->
                             </div>
                             <input type="text" name="username" class="form-control" value="{{ old('username') }}" placeholder="Enter your desired username...">
                             @error('username')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
-                            
                         </div>
 
                         <div class="mb-2">
                             <label for="password" class="form-label mb-0">Password</label>
-                            <input type="password" name="password" class="form-control" placeholder="Enter your password...">
+                            <div class="input-group">
+                                <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password...">
+                                <button type="button" class="btn btn-outline-secondary" id="togglePassword">
+                                    Show
+                                </button>
+                            </div>
                             @error('password')
                             <div class="text-danger">{{ $message }}</div>
                             @enderror
                         </div>
-
 
                         @if($errors->has('fields'))
                         <div class="alert alert-danger mt-3">
                             {{ $errors->first('fields') }}
                         </div>
                         @endif
-
-                        <!-- @if($errors->has('username'))
-                        <div class="alert alert-danger mt-3">
-                            {{ $errors->first('username') }}
-                        </div>
-                        @endif -->
 
                         <div class="text-center">
                             <button type="submit" class="btn btn-success mt-4 w-100">Register</button>
@@ -136,6 +132,15 @@
         </div>
     </div>
 
+    <script>
+        document.getElementById('togglePassword').addEventListener('click', function () {
+            const passwordField = document.getElementById('password');
+            const isPassword = passwordField.type === 'password';
+
+            passwordField.type = isPassword ? 'text' : 'password';
+            this.textContent = isPassword ? 'Hide' : 'Show';
+        });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 
