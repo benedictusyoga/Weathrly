@@ -39,8 +39,8 @@ class AuthController extends Controller
     {
         // Validate all fields are required
         $request->validate([
-            'name' => 'required|string|max:255',
-            'age' => 'required|integer|min:1',
+            'name' => 'required|string|max:64',
+            'age' => 'required|integer|min:1|max:99',
             'username' => 'required|string|unique:customer,username|max:12',
             'password' => 'required|string|min:6', // Ensure password is at least 6 characters
         ]);
@@ -124,9 +124,11 @@ class AuthController extends Controller
 
 
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'age' => 'required|integer|min:1',
-            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg',
+            'name' => 'required|string|max:64',
+            'age' => 'required|integer|min:1|max:99',
+            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg|max:4096',
+        ], [
+            'profile_picture.max' => 'The image size must not exceed 4 MB',
         ]);
 
         // Update profile picture if provided

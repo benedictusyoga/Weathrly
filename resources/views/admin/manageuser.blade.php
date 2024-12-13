@@ -7,7 +7,7 @@
     </div>
     <form action="{{ route('manageuser') }}" method="GET" class="mb-4">
         <div class="input-group">
-            <input type="text" name="search" class="form-control" placeholder="Search users by name or username" value="{{ request('search') }}">
+            <input type="text" name="search" class="form-control" placeholder="Search users by id, name, or username" value="{{ request('search') }}">
             <button type="submit" class="btn btn-primary">Search</button>
         </div>
     </form>

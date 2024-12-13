@@ -58,10 +58,12 @@ class ReportController extends Controller
             return redirect()->route('login')->with('error', 'You must log in to access this page.');
         }
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
+            'title' => 'required|string|max:128',
+            'description' => 'required|string|max:255',
             'location' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:8192',
+        ], [
+            'image.max' => 'The image size must not exceed 8 MB'
         ]);
 
         $path = null;
@@ -121,11 +123,14 @@ class ReportController extends Controller
             // Redirect to login if not authenticated
             return redirect()->route('login')->with('error', 'You must log in to access this page.');
         }
+
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
+            'title' => 'required|string|max:128',
+            'description' => 'required|string|max:255',
             'location' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:8192',
+        ], [
+            'image.max' => 'The image size must not exceed 8 MB'
         ]);
 
         // Update image jika ada

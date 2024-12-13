@@ -22,7 +22,7 @@ class reportSeeder extends Seeder
                 'description' => $faker->sentence(15),
                 'location' => '-6.223984118693082,106.65008068084717',
                 'location_name' => 'Binus University Alam Sutera, Jalan Jalur Sutera Barat, Alam Sutera, Panunggangan, Pinang, Tangerang Selatan, Banten, Jawa, 15143, Indonesia',
-                'image_path' => 'profile_pictures/default-profile.png',
+                'image_path' => null,
                 'created_at' => $faker->dateTime(),
                 'updated_at' => $faker->dateTime()
             ]);

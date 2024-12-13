@@ -39,7 +39,8 @@ class AdminController extends Controller
         $users = customer::where('role', 'user')
             ->when($search, function ($query, $search) {
                 return $query->where('name', 'like', "%{$search}%")
-                    ->orWhere('username', 'like', "%{$search}%");
+                    ->orWhere('username', 'like', "%{$search}%")
+                    ->orWhere('id', 'like', "%{$search}%");
             })
             ->orderBy($sortColumn, $sortDirection) // Apply sorting
             ->paginate(10);
@@ -55,6 +56,11 @@ class AdminController extends Controller
 
         if ($user) {
             if ($user->role === 'user') {
+                $defaultProfilePicturePath = 'profile_pictures/user(1).png';
+                if ($user->profile_picture && $user->profile_picture !== $defaultProfilePicturePath) {
+                    // Delete the previous profile picture from S3
+                    \Storage::disk('s3')->delete($user->profile_picture);
+                }
                 $user->delete();
                 return redirect()->route('manageuser')->with('success', 'User berhasil dihapus');
             } else {
