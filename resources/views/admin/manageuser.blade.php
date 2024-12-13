@@ -14,7 +14,7 @@
 
     <div class="table-responsive">
         <table class="table table-striped table-hover table-sm" style="min-width:800px;">
-            <thead class="table-dark fs-5">
+            <thead class="table-dark" style="font-size:15px;">
                 <tr>
                     <th scope="col">
                         <a href="{{ route('manageuser', ['sort' => 'id', 'direction' => ($sortColumn === 'id' && $sortDirection === 'asc') ? 'desc' : 'asc']) }}" class="{{ $sortColumn === 'id' ? 'text-white' : '' }}">
@@ -75,7 +75,7 @@
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
-            <tbody class="fs-5" style="font-size:15px;">
+            <tbody style="font-size:15px;">
                 @forelse ($users as $user)
                 <tr>
                     <td>{{ $user->id }}</td>

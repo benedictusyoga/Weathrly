@@ -13,23 +13,22 @@
 <div class="overlay" style=" position: fixed; bottom: 0; left: 0; width: 100%; height: 150px; background: linear-gradient(to top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0)); z-index: -5;"></div>
 <!-- Top Controls -->
 <div class="content-container">
-    <h2 class="display-5 mt-2 pt-1 mb-0 text-white fw-bold" style="text-align:center;">ENVIRONMENT REPORTS</h2>
+    <h2 class="display-5 mt-2 pt-1 mb-0 text-white fw-bold mx-4" style="text-align:center; text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);">ENVIRONMENT REPORTS</h2>
     <div style="width:50vw; min-width:250px;">
         <form action="{{ route('reports.index') }}" method="GET" class="d-flex align-items-center">
-            <input type="text" name="search" class="form-control me-2" placeholder="Search Reports" value="{{ request('search') }}" style="max-height:3vh; font-size:14px;">
-            <button type="submit" class="btn btn-success btn-sm">Search</button>
+            <input type="text" name="search" class="form-control me-2 py-3" placeholder="Search Reports" value="{{ request('search') }}" style="max-height:3vh; font-size:14px;">
+            <button type="submit" class="btn btn-success btn-lg item-hover"><i class="fa-solid fa-magnifying-glass"></i></button>
         </form>
     </div>
     <!-- Scrollable Feed -->
     <div class="feed-container justify-content-center align-items-center bg-opacity-50 p-4 rounded-3 shadow-lg">
-        <div class="add-btn mb-3">
+        <div class="add-btn mb-3 item-hover">
             <div class="alert alert-warning alert-dismissible fade show" style="position:absolute; z-index:500; width:max-content; right:10px; bottom:6vh;"><strong>Add a New Report Here!</strong>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             <a href="{{ route('reports.create') }}" class="btn btn-success rounded-circle p-0 shadow" style="width: 60px; height: 60px;">
-                <span style=" font-size: 50px; position: absolute; top:-1.5vh;">+</span>
+                <i class="fas fa-plus" style="font-size: 2rem;"></i>
             </a>
-            <!-- <p class="text-white bg-success bg-opacity-25 p-0 px-3 rounded mt-2 fw-bold">Add Report</p> -->
         </div>
         @forelse($reports as $report)
         <div class="card shadow-sm mb-3 px-2 py-3 shadow">
@@ -48,7 +47,7 @@
                         <h5 class="h5 small mb-0"><i>{{ $report->updated_at->format('D, j M y') }}</i></h5>
                     </div>
 
-                    <a href="{{ route('reports.show', $report) }}" class="btn btn-primary btn-sm fw-bold py-1 px-4 rounded-pill shadow">See Detail > </a>
+                    <a href="{{ route('reports.show', $report) }}" class="btn btn-primary btn-sm fw-bold py-1 px-4 rounded-pill shadow item-hover">See Detail > </a>
                 </div>
             </div>
         </div>
@@ -65,7 +64,7 @@
         </div>
         @endforelse
         <!-- Pagination -->
-        
+
     </div>
     <div class="d-flex flex-column justify-content-end align-items-center" style="position:absolute; bottom:0px; left:0px; width:100vw; max-height:10vh;">
         <!-- Showing X out of X results -->
@@ -83,6 +82,7 @@
 
 
 <style>
+
     .add-btn {
         display: flex;
         flex-direction: column;

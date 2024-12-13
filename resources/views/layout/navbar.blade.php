@@ -9,7 +9,7 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 
         .navbar {
-            margin-top: 15px;
+            /* margin-top: 15px; */
             z-index: 500;
         }
 
@@ -27,11 +27,13 @@
         }
 
         .nav-hover {
-            transition: color 0.3s ease;
+            color: white;
+            transition: color 0.2s ease, transform 0.2s ease;
         }
 
         .nav-hover:hover {
-            color: gray !important;
+            color: rgb(213, 213, 213) !important;
+            transform: translateY(-5%) !important;
         }
 
         .profile-picture {
@@ -83,17 +85,17 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-transparent fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-transparent fixed-top shadow-lg">
         <div class="container position-relative">
             <!-- Hamburger Menu -->
-            <button class="navbar-toggler" type="button" id="navbar-toggler">
+            <button class="navbar-toggler" style="border:none;" type="button" id="navbar-toggler">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <!-- Logo and Brand Name -->
             <a class="navbar-brand d-flex align-items-center" href="/landing">
                 <img src="https://weathrly.s3.ap-southeast-2.amazonaws.com/logo.png" alt="Weathrly" style="width: 40px; height: 40px;">
-                <span class="ms-2 d-none d-lg-block" style="font-family: 'Inter', sans-serif; font-size: 20px;">WEATHRLY</span>
+                <span class="ms-2 d-none d-lg-block nav-hover" style="font-family: 'Inter', sans-serif; font-size: 20px; text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);">WEATHRLY</span>
             </a>
 
             @auth
@@ -104,7 +106,9 @@
                     <li class="nav-item">
                         <a class="nav-link text-dark fw-bold nav-hover" href="{{ route('landing') }}">HOME</a>
                     </li>
-                    
+
+                    <hr class="m-0 p-0 w-75" style="height:min-content;">
+
                     <li class="nav-item">
                         <a class="nav-link text-dark fw-bold nav-hover" href="/reportHome">REPORT</a>
                     </li>
@@ -114,9 +118,9 @@
                     <li class="nav-item">
                         <a class="nav-link text-dark fw-bold nav-hover" href="{{ route('dashboard') }}">DASHBOARD</a>
                     </li>
-                    
-                        <hr class="m-0 p-0 w-75" style="height:min-content;">
-                    
+
+                    <hr class="m-0 p-0 w-75" style="height:min-content;">
+
                     <li class="nav-item">
                         <a class="nav-link text-dark fw-bold nav-hover" href="/reportHome">REPORT</a>
                     </li>
@@ -128,11 +132,11 @@
             <div class="d-none d-lg-block nav-center" style="font-family: 'Inter', sans-serif;">
                 @if(Auth::user()->role == 'user')
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link text-white fw-bold nav-hover" href="{{ route('landing') }}">HOME</a>
+                    <li class="nav-item ">
+                        <a class="nav-link fw-bold nav-hover" style="text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);" href="{{ route('landing') }}">HOME</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white fw-bold nav-hover" href="/reportHome">REPORT</a>
+                        <a class="nav-link fw-bold nav-hover" style="text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);" href="/reportHome">REPORT</a>
                     </li>
                 </ul>
                 @elseif(Auth::user()->role == 'admin')
@@ -150,7 +154,7 @@
             <!-- Profile Section -->
             <div class="d-flex flex-row ms-auto align-items-center">
                 <div class="user-info d-flex flex-column align-items-end justify-content-end me-2">
-                    <a class="user-name nav-link text-white nav-hover mb-0 py-0 m-0" href="/profile/edit" style="font-family: 'Inter', sans-serif; font-size: 2.5vh; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight:1000;">
+                    <a class="user-name nav-link text-white nav-hover mb-0 py-0 m-0" href="/profile/edit" style="text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4); font-family: 'Inter', sans-serif; font-size: 2.5vh; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight:1000;">
                         {{ Str::limit(Auth::user()->username, 13) }}
                     </a>
                     <a class=" bg-white link link-danger px-2 py-0 m-0 fw-bold text-danger link-underline-opacity-0 rounded-pill" href="{{ route('logout') }}" style="font-size: 1.5vh;" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -162,7 +166,7 @@
                 </div>
                 <a href="/profile/edit" class="ms-0">
                     @if(Auth::user()->profile_picture)
-                    <img src="{{ Storage::disk('s3')->url(Auth::user()->profile_picture) }}" alt="Profile Picture" class="profile-picture" style="border: solid 2px white;">
+                    <img src="{{ Storage::disk('s3')->url(Auth::user()->profile_picture) }}" alt="Profile Picture" class="profile-picture nav-hover" style="border: solid 2px white;">
                     @else
                     <img src="{{ Storage::disk('s3')->url('default-profile.jpg') }}" alt="Default Profile Picture" class="profile-picture" style="border: solid 2px white;">
                     @endif

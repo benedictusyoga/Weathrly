@@ -31,7 +31,7 @@
             <!-- Menampilkan Peta untuk Memilih Lokasi -->
             <div class="mb-3">
                 <label for="location" class="form-label">Update Location:</label>
-                <div id="map" style="height: 400px;"></div>
+                <div id="map" style="height: 400px;" class="form-control"></div>
             </div>
     
             <div class="mb-3 mt-4">
@@ -40,8 +40,8 @@
             </div>
     
             <div class="card-footer d-flex justify-content-between align-items-center p-4">
-                <a href="{{ route('reports.show', $report) }}" class="btn btn-warning">Cancel</a>
-                <button type="submit" class="btn btn-primary"><strong>Update</strong> Report</button>
+                <a href="{{ route('reports.show', $report) }}" class="btn btn-warning neg-hover">Cancel</a>
+                <button type="submit" class="btn btn-primary pos-hover"><strong>Update</strong> <i class="fa-solid fa-check"></i></button>
             </div>
         </form>
         

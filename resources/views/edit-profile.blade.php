@@ -58,14 +58,14 @@
                             @enderror
                         </div>
 
-                        <div class="d-flex justify-content-end" style="width:100%;"><button type="submit" class="btn btn-warning rounded-pill btn-sm" style="position:relative; top:30px; ">Update Profile</button></div>
+                        <div class="d-flex justify-content-end" style="width:100%;"><button type="submit" class="btn btn-primary rounded-pill btn-sm pos-hover" style="position:relative; top:30px; "><i class="fa-solid fa-check"></i> Update</button></div>
                     </form>
                     <div class="d-flex justify-content-start align-items-start">
                         @if(Auth::user()->profile_picture)
                         <form action="{{ route('profile.picture.delete') }}" method="POST" class="ms-0 align-items-end">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm">Remove Profile Picture</button>
+                            <button type="submit" class="btn btn-danger btn-sm neg-hover"><i class="fa-solid fa-trash"></i> Picture</button>
                         </form>
                         @endif
                     </div>

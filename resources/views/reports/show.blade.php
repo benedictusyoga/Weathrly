@@ -17,27 +17,28 @@
         </div>
 
         <!-- Menampilkan lokasi pada peta -->
-         <div class="d-flex justify-content-center align-items-center" style="width: 100%;">
+        <div class="d-flex justify-content-center align-items-center" style="width: 100%;">
              <div id="map" class="mb-4 rounded-5" style="height: 200px; width:90%;"></div>
-         </div>
+        </div>
 
-        <div class="card-footer d-flex justify-content-evenly mt-3 py-4 align-items-center">
+        <div class="card-footer d-flex justify-content-around mt-3 py-4 align-items-center">
             <form action="{{ route('reports.destroy', $report) }}" method="POST" class="d-inline">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="btn btn-danger rounded btn-sm">
-                    <i class="bi bi-trash"></i> Delete Report
+                <button type="submit" class="btn btn-danger btn-lg rounded neg-hover">
+                    <i class="fa-solid fa-trash"></i>
                 </button>
             </form>
-            <a href="{{ route('reports.edit', $report) }}" class="btn btn-warning rounded-pill btn-sm">
-                <i class="bi bi-pencil-square"></i> Edit Report
+            <a href="{{ route('reports.edit', $report) }}" class="btn btn-warning rounded-pill pos-hover shadow-lg fw-semibold px-3">
+                <i class="fa-solid fa-pen"></i> Edit
             </a>
 
         </div>
 
         <div class="card-footer text-center">
             <a href="{{ route('reports.index') }}" class="btn btn-link">
-                <i class="bi bi-arrow-left-circle">< Back to Reports</i>
+                <i class="bi bi-arrow-left-circle">
+                    < Back to Reports</i>
             </a>
         </div>
     </div>
@@ -48,4 +49,5 @@
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
     L.marker([{{ explode(',', $report->location)[0] }}, {{ explode(',', $report->location)[1] }}]).addTo(map);
 </script>
+
 @endsection
