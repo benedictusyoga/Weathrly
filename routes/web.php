@@ -27,6 +27,7 @@ Route::get('/admin/dashboard', [AdminController::class, 'adminview'])->name('das
 Route::get('/admin/users', [AdminController::class, 'manageuser'])->name('manageuser');
 Route::delete('/delete/{id}', [AdminController::class, 'deleteuser'])->name('delete');
 
+
 Route::get('/report', [ReportController::class, 'create'])->name('reports.create');
 Route::post('/report', [ReportController::class, 'store'])->name('reports.store');
 Route::get('/reportHome', [ReportController::class, 'index'])->name('reports.index');

@@ -2,27 +2,33 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-
 
 class customer extends Authenticatable
 {
     use Notifiable;
 
-    // Nama tabel (jika berbeda dari default)
     protected $table = 'customer';
 
-    // Field yang bisa diisi
     protected $fillable = ['name', 'age', 'username', 'password', 'role', 'profile_picture'];
 
+    // Use Laravel's default identifier name
+    // Remove this if unnecessary
     public function getAuthIdentifierName()
     {
-        return 'username';
+        return 'id'; // or the default 'email' if necessary
     }
 
+    // Ensure the password is always encrypted
+    protected static function boot()
+    {
+        parent::boot();
 
-    // Enkripsi password sebelum disimpan
-
+        static::creating(function ($customer) {
+            if (!empty($customer->password)) {
+                $customer->password = bcrypt($customer->password);
+            }
+        });
+    }
 }

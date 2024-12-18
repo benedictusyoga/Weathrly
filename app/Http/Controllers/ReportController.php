@@ -14,23 +14,26 @@ class ReportController extends Controller
      */
     public function index(Request $request)
     {
-
         if (!Auth::check()) {
             // Redirect to login if not authenticated
             return redirect()->route('login')->with('error', 'You must log in to access this page.');
         }
-        // Ambil keyword dari input pencarian
+
+        // Get the search keyword from the input
         $search = $request->input('search');
 
-        // Filter laporan berdasarkan title atau location_name
+        // Filter reports based on title or location_name and order by the most recent
         $reports = Report::when($search, function ($query, $search) {
             return $query->where('title', 'LIKE', "%{$search}%")
                 ->orWhere('location_name', 'LIKE', "%{$search}%");
-        })->paginate(10);
+        })
+            ->orderBy('created_at', 'desc') // Order by the most recent
+            ->paginate(10);
 
-        // Kembalikan view dengan data laporan
+        // Return the view with the reports data
         return view('reports.index', compact('reports'));
     }
+
 
 
     /**
@@ -55,10 +58,12 @@ class ReportController extends Controller
             return redirect()->route('login')->with('error', 'You must log in to access this page.');
         }
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
+            'title' => 'required|string|max:128',
+            'description' => 'required|string|max:255',
             'location' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:8192',
+        ], [
+            'image.max' => 'The image size must not exceed 8 MB'
         ]);
 
         $path = null;
@@ -80,7 +85,8 @@ class ReportController extends Controller
         $report->save();
 
         // Arahkan ke halaman daftar laporan setelah berhasil disubmit
-        return redirect()->route('reports.index')->with('success', 'Laporan berhasil dikirim!');
+        return redirect()->route('reports.index')
+            ->with('success', "Report <strong>{$report->title}</strong> has been CREATED!");
     }
 
 
@@ -117,11 +123,14 @@ class ReportController extends Controller
             // Redirect to login if not authenticated
             return redirect()->route('login')->with('error', 'You must log in to access this page.');
         }
+
         $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
+            'title' => 'required|string|max:128',
+            'description' => 'required|string|max:255',
             'location' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:8192',
+        ], [
+            'image.max' => 'The image size must not exceed 8 MB'
         ]);
 
         // Update image jika ada
@@ -146,7 +155,7 @@ class ReportController extends Controller
         $report->save();
         $report->update($validated);
 
-        return redirect()->route('reports.index')->with('success', 'Laporan berhasil diperbarui!');
+        return redirect()->route('reports.index')->with('success', "Report <strong>{$report->title}</strong> has been successfully UPDATED!");
     }
     /**
      * Remove the specified resource from storage.
@@ -162,7 +171,7 @@ class ReportController extends Controller
             \Storage::disk('s3')->delete($report->image_path);
         }
         $report->delete();
-        return redirect()->route('reports.index')->with('success', 'Laporan berhasil dihapus!');
+        return redirect()->route('reports.index')->with('success', "Report <strong>{$report->title}</strong> has been successfully DELETED!");
     }
 
     private function getLocationName($latitude, $longitude)

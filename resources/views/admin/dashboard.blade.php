@@ -1,24 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weathrly</title>
-    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-</head>
-<body>
-<div class="container mt-5">
-    <h1 class="text-bold fs-1">Dashboard Admin</h1>
-    <p class="fs-3">Selamat datang, Admin</p>
-    <div class="text-right">
-    <a class="btn btn-primary" href="{{ route('manageuser') }}">View User</a>
-    </div>
-    <form action="{{ route('logout') }}" method="POST">
-    @csrf
-    <button class="mt-3 btn btn-dark" type="submit">Logout</button>
-    </form>                     
-</div>
+@extends('layout.app')
 
-<script src="{{ asset('js/bootstrap.js') }}"></script>
-</body>
-</html>
+@section('content')
+<div class="d-flex justify-content-center flex-column align-items-center" style="height:85vh;">
+    @auth
+    <div class="main-box @guest guest-mode @endguest mx-5" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: white; text-align: center;">
+        <h1 class="display-1 fw-bold">Welcome, <span>{{ Str::limit(Auth::user()->name, 10) }}</span></h1>
+        <p>What are we doing today?</p>
+        <div class="d-flex flex-row justify-content-center align-items-center" style="gap:20px;">
+            
+            <a class="btn btn-primary" href="{{ route('manageuser') }}">View Users</a>
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button class="btn btn-danger" type="submit">Logout</button>
+            </form>
+        </div>
+    </div>
+    @endauth
+</div>
+@endsection

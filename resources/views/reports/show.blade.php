@@ -1,32 +1,47 @@
 @extends('layout.app')
 
 @section('content')
-<div class="container mt-4">
-    <h2>Detail Laporan: {{ $report->title }}</h2>
+<div class="container d-flex mx-0 pt-5 mt-5 justify-content-center align-items-start bg-opacity-10 shadow-lg" style="max-width:700px; height:80vh; overflow-y:auto;">
+    <div class="card shadow-lg border-0 rounded-5 mb-5" style="width:600px; min-width:200px;">
+        <div class="card-header bg-primary text-white rounded-top-5 p-4">
+            <h3 class="mb-0 h5">Now Viewing: </h3>
+            <h2 class="mb-0 fw-bold">{{ $report->title }}</h2>
+        </div>
 
-    <div class="card mb-3">
-        <img src="{{ $report->image_path ? Storage::disk('s3')->url($report->image_path) : 'https://via.placeholder.com/150' }}" class="card-img-top" alt="Image">
+        <img src="{{ $report->image_path ? Storage::disk('s3')->url($report->image_path) : 'https://via.placeholder.com/150' }}" class="card-img-top" alt="Image" style="height:200px; object-fit:cover;">
 
         <div class="card-body">
-            <h5 class="card-title">{{ $report->title }}</h5>
-            <p class="card-text">{{ $report->description }}</p>
-            <p><strong>Lokasi:</strong> {{ $report->location_name}}</p>
+            <p class="card-text small card-text fw-normal">{{ $report->description }}</p>
+            <hr>
+            <p class="text-muted small fst-italic"><strong>Lokasi:</strong> {{ $report->location_name }}</p>
+        </div>
+
+        <!-- Menampilkan lokasi pada peta -->
+        <div class="d-flex justify-content-center align-items-center" style="width: 100%;">
+             <div id="map" class="mb-4 rounded-5" style="height: 200px; width:90%;"></div>
+        </div>
+
+        <div class="card-footer d-flex justify-content-around mt-3 py-4 align-items-center">
+            <form action="{{ route('reports.destroy', $report) }}" method="POST" class="d-inline">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger btn-lg rounded neg-hover">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+            </form>
+            <a href="{{ route('reports.edit', $report) }}" class="btn btn-warning rounded-pill pos-hover shadow-lg fw-semibold px-3">
+                <i class="fa-solid fa-pen"></i> Edit
+            </a>
+
+        </div>
+
+        <div class="card-footer text-center">
+            <a href="{{ route('reports.index') }}" class="btn btn-link">
+                <i class="bi bi-arrow-left-circle">
+                    < Back to Reports</i>
+            </a>
         </div>
     </div>
-
-    <!-- Menampilkan lokasi pada peta -->
-    <div id="map" style="height: 400px;"></div>
-
-    <!-- Button Edit dan Delete -->
-    <a href="{{ route('reports.edit', $report) }}" class="btn btn-warning mt-3">Edit Laporan</a>
-
-    <form action="{{ route('reports.destroy', $report) }}" method="POST" class="d-inline mt-3">
-        @csrf
-        @method('DELETE')
-        <button type="submit" class="btn btn-danger">Hapus Laporan</button>
-    </form>
-
-    <a href="{{ route('reports.index') }}" class="btn btn-link mt-3">Kembali ke Daftar Laporan</a>
 </div>
 
 <script>
@@ -34,4 +49,5 @@
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
     L.marker([{{ explode(',', $report->location)[0] }}, {{ explode(',', $report->location)[1] }}]).addTo(map);
 </script>
+
 @endsection
